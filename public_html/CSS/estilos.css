@@ -1,9 +1,88 @@
-/* From Uiverse.io by CristianMontoya98 */ 
+
+header {
+    display: flex; 
+    justify-content: space-between; 
+    min-height: 70px;
+    background-color: black;
+    align-items: center;
+    padding:10px;
+}
+
+
+
+body{
+    font-family: sans-serif;
+    margin: 0;
+}
+
+
+.logo{
+    display: flex;
+    align-items: center;
+}
+
+.logo img{
+    height: 80px;
+    margin-right: 10px;
+}
+
+
+@media (max-width:700px){
+    header{
+        flex-direction: column;
+    }
+    
+    nav{
+        padding: 10px 0px;
+    }
+    
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#main-footer {
+    background-color: black;
+    color: #aaa;
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    margin-top: auto;
+}
+
+#main-footer h3 {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+#main-footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+#main-footer ul li {
+    margin-bottom: 5px;
+}
+
+#main-footer h4 {
+    margin-top: 20px;
+    font-weight: normal;
+    color: #aaa;
+}
+
+
+
+
+
 .btn {
  width: 6.5em;
  height: 2.3em;
  margin: 0.5em;
- background: Black;
+ background: rgb(246, 110, 78);
  color: White;
  border: none;
  border-radius: 0.625em;
@@ -39,25 +118,7 @@ button:hover:after {
  transition: all 0.5s;
 }
 
-header {
-    display: flex; 
-    justify-content: flex-end; 
-    align-items: flex-end; 
-     background-color: black;
-     width: 100%;
-     margin: 0;
-     padding: 0;
-}
 
-
-
-#logo {
-    max-width: 100px; /* Ajusta el tamaño máximo del logo */
-    height: auto; /* Mantiene la proporción del logo */
-    display: block; /* Cambia el comportamiento a bloque */
-    margin: 0- auto; /* Centra la imagen horizontalmente */
-    
-}
 
 
 
