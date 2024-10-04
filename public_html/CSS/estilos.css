@@ -56,6 +56,7 @@ header {
     height: auto; /* Mantiene la proporción del logo */
     display: block; /* Cambia el comportamiento a bloque */
     margin: 0- auto; /* Centra la imagen horizontalmente */
+    
 }
 
 
