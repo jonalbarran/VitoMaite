@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="CSS/estilos.css">
     <title>VITOMAITE</title>
     <link rel="icon" type="image/ico" href="img/logomini.ico"/>
-</head>
+</head>  
 <body>
     <header>
         <div class="logo">
@@ -18,24 +18,51 @@
         </nav>
     </header>
 
-    <main class="mainclass">
-        <form class="form">
-            <span class="title">Inicia Sesión</span>
-            <label for="email">Mail</label>
-            <input type="email" id="email" name="email" class="input" required>
-            <label for="password">Contraseña</label>
-            <input type="password" id="password" name="password" class="input" required>
-            <button type="submit" class="submit">Iniciar Sesión</button>
-            <h4><a href="registro.html">¿No estás registrado? Haz clic aquí</a></h4>
-        </form>
-
-        <div>
-            <button class="BotonBuscarNoLog" onclick="window.location.href='buscarNoLogueado.html'">
-                BUSCA GENTE AHORA
-            
-                <span class="button-span"> <br> ─ sin compromiso</span>
-            </button>
+    <main>
+       <div class="input-busquedaNickNoLogueado">
+          <input
+            class="input-text"
+            id="text"
+            name="text"
+            type="text"
+            placeholder="Buscar por nickname"
+            autocomplete="off"
+            required
+          />
+          <label class="input-text-label" for="text">Buscar por nickname</label>
+          <button class="boton-buscar">
+            <img src="./IMG/buscarPersonaICN.png" alt="Buscar" class="icono-buscar" />
+            Buscar
+          </button>
         </div>
+
+        
+        <table>
+          <thead>
+            <tr>
+              <th>Nickname</th>
+              <th>Edad</th>
+              <th>Detalles</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Usuario1</td>
+              <td>25</td>
+              <td><button>Ver detalles</button></td>
+            </tr>
+            <tr>
+              <td>Usuario2</td>
+              <td>30</td>
+              <td><button>Ver detalles</button></td>
+            </tr>
+            <tr>
+              <td>Usuario3</td>
+              <td>22</td>
+              <td><button>Ver detalles</button></td>
+            </tr>
+          </tbody>
+        </table>
     </main>
 
     <footer id="main-footer">
@@ -53,7 +80,5 @@
             </div>
         </div>
     </footer>
-
-    <!--<script src="JS/index.js"></script>-->
 </body>
 </html>

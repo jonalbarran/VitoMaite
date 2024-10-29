@@ -1,24 +1,21 @@
-
 header {
     display: flex; 
     justify-content: space-between; 
     min-height: 70px;
     background-color: black;
     align-items: center;
-    padding:10px;
+    padding: 10px;
 }
 
-
-
-body{
+body {
     font-family: sans-serif;
     margin: 0;
     overflow-x: hidden;
-    
 }
 
 .mainclass {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-image: url("../IMG/fondoAtardecer.jpg");
@@ -29,28 +26,26 @@ body{
     width: 100%;
 }
 
-.logo{
+.logo {
     display: flex;
     align-items: center;
 }
 
-.logo img{
+.logo img {
     height: 80px;
     margin-right: 10px;
 }
 
-
 /*Resizable--------------------------------------------------------------------*/
 
-@media (max-width:700px){
-    header{
+@media (max-width: 700px) {
+    header {
         flex-direction: column;
     }
     
-    nav{
+    nav {
         padding: 10px 0px;
     }
-    
 }
 
 html, body {
@@ -59,7 +54,6 @@ html, body {
     display: flex;
     flex-direction: column;
 }
-
 
 /*Footer------------------------------------------------------------------------------------*/
 
@@ -94,105 +88,492 @@ html, body {
 
 /*Botones ------------------------------------------------------------------------------------------------*/
 
-
 .btn {
- width: 6.5em;
- height: 2.3em;
- margin: 0.5em;
- background: rgb(246, 110, 78);
- color: White;
- border: none;
- border-radius: 0.625em;
- font-size: 20px;
- font-weight: bold;
- cursor: pointer;
- position: relative;
- z-index: 1;
- overflow: hidden;
- 
+    width: 6.5em;
+    height: 2.3em;
+    margin: 0.5em;
+    background: rgb(246, 110, 78);
+    color: White;
+    border: none;
+    border-radius: 0.625em;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
 }
 
 button:hover {
- color: black;
+    color: black;
 }
 
 button:after {
- content: "";
- background: white;
- position: absolute;
- z-index: -1;
- left: -20%;
- right: -20%;
- top: 0;
- bottom: 0;
- transform: skewX(-45deg) scale(0, 1);
- transition: all 0.5s;
+    content: "";
+    background: white;
+    position: absolute;
+    z-index: -1;
+    left: -20%;
+    right: -20%;
+    top: 0;
+    bottom: 0;
+    transform: skewX(-45deg) scale(0, 1);
+    transition: all 0.5s;
 }
 
 button:hover:after {
- transform: skewX(-45deg) scale(1, 1);
- -webkit-transition: all 0.5s;
- transition: all 0.5s;
+    transform: skewX(-45deg) scale(1, 1);
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
 }
 
-/*Formulario----------------------------------------------------------------------*/
-
+/*Formulario y BotonBuscarNoLog----------------------------------------------------------------------*/
 
 .form {
-  max-width: 320px;
-  width: 100%;
-  background-color: #fff;
-  padding: 20px;
-  box-shadow: 0px 0px 0px 4px rgba(52, 52, 53, 0.185);
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
+    max-width: 320px;
+    width: 100%;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0px 0px 0px 4px rgba(52, 52, 53, 0.185);
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-bottom: 20px; 
 }
 
 .title {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #1a202c;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #1a202c;
 }
 
 .label {
-  color: rgb(0, 0, 0);
-  margin-bottom: 4px;
+    color: rgb(0, 0, 0);
+    margin-bottom: 4px;
 }
 
 .input {
-  padding: 10px;
-  margin-bottom: 20px;
-  width: 93%;
-  font-size: 1rem;
-  color: #4a5568;
-  outline: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  transition: all 0.2s ease-in-out;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 93%;
+    font-size: 1rem;
+    color: #4a5568;
+    outline: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
 }
 
 .input:focus {
-  background-color: #fff;
-  box-shadow: 0 0 0 2px #cbd5e0;
+    background-color: #fff;
+    box-shadow: 0 0 0 2px #cbd5e0;
 }
 
 .input:valid {
-  border: 1px solid green;
+    border: 1px solid green;
 }
-
 
 .submit {
-  background-color: #1a202c;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+    background-color: #151515;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
-    
-    
-    
+
+/*BotonBuscarNoLogueado-------------------------------------------------------------------*/
+
+.BotonBuscarNoLog {
+    padding: 15px 20px;
+    border: none;
+    outline: none;
+    background-color: #D12C2C;
+    color: #eee;
+    border-radius: 7px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease-out;
+    font-size: 1.2rem;
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.button:hover {
+    transform: translateY(-3px);
+}
+
+.button-span {
+    color: #aaa;
+}
+
+/*buscarNoLogueado-------------------------------------------------------------------*/
+
+.input-busquedaNickNoLogueado {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    position: relative;
+}
+
+.input-text {
+    flex: 1;
+    font-family: Arial, sans-serif;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #333;
+    background: transparent;
+    transition: border-color 0.3s;
+}
+
+.input-text::placeholder {
+    color: transparent;
+}
+
+.input-text-label {
+    position: absolute;
+    left: 0;
+    font-size: 16px;
+    color: #aaa;
+    transition: 0.2s;
+    pointer-events: none;
+    padding-left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.input-text:focus {
+    outline: none;
+    border-color: rgb(246, 110, 78);
+}
+
+.input-text:focus ~ .input-text-label,
+.input-text:not(:placeholder-shown) ~ .input-text-label {
+    top: -10px;
+    font-size: 14px;
+    color: rgb(246, 110, 78);
+}
+
+.boton-buscar {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: rgb(246, 110, 78);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.boton-buscar:hover {
+    background-color: #d96b56;
+}
+
+.icono-buscar {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+table {
+    width: 100%;
+    max-width: 600px;
+    margin: 80px auto; 
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+}
+
+td {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    transition: background-color 0.3s;
+}
+
+td button {
+    background-color: rgb(246, 110, 78);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+td button:hover {
+    background-color: #d96b56;
+}
+
+/*EditarPerfil------------------------------------------------------------------------------------*/ 
+
+.cardPremium {
+    width: 350px;
+    height: 180px;
+    background: #151515;
+    padding: 10px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 20px auto;
+    align-items: first;
+}
+
+.cardPremium__title {
+    font-size: 1.6em;
+    font-weight: 800;
+    color: #f7f9f9;
+}
+
+.cardPremium__text {
+    font-style: italic;
+    font-weight: 500;
+    color: #cccccc;
+    font-family: 'Arial', sans-serif;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.cardPremium__icon {
+    width: 40px; 
+    height: 40px; 
+    margin-bottom: 10px; 
+    margin-top: 10px;
+}
+
+.formPremium {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.hobbies-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.hobbies-container label {
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.hobbies-container input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.hobbies-container label:hover {
+    background-color: rgb(246, 110, 78);
+    border-color: rgb(246, 110, 78);
+    color: white;
+}
+
+.hobbies-container input[type="checkbox"]:checked + .checkbox-label {
+    background-color: rgb(246, 110, 78);
+    border-color: rgb(246, 110, 78);
+    color: white;
+}
+.hobbies-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.hobbies-container label {
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.hobbies-container input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.hobbies-container label:hover {
+    background-color: rgb(246, 110, 78);
+    border-color: rgb(246, 110, 78);
+    color: white;
+}
+
+.hobbies-container input[type="checkbox"]:checked + .checkbox-label {
+    background-color: rgb(246, 110, 78);
+    border-color: rgb(246, 110, 78);
+    color: white;
+}
+.hobbies-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+    align-content: center;
+}
+
+.hobbies-container label {
+    background-color: grey;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.hobbies-container input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.hobbies-container label:hover {
+    background-color: rgb(246, 110, 78);
+    border-color: rgb(246, 110, 78);
+    color: white;
+}
+
+.hobbies-container input[type="checkbox"]:checked + .checkbox-label {
+    background-color: rgb(246, 110, 78);
+    border-color: rgb(246, 110, 78);
+    color: white;
+}
+
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group select:focus {
+    border-color: rgb(246, 110, 78);
+    outline: none;
+}
+
+.submit {
+    background-color: rgb(246, 110, 78);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.submit:hover {
+    background-color: rgb(210, 95, 62);
+}
+
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Opcional: para agregar espacio superior */
+}
+
+.AceptarCambiosBTN {
+    /* Aquí puedes agregar estilos adicionales para el botón */
+    background-color: rgb(246, 110, 78);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.AceptarCambiosBTN:hover {
+    background-color: rgb(210, 95, 62);
+}
+
+
+.formPremium {
+    background-color: black; /* Fondo negro */
+    border-radius: 10px; /* Bordes redondos */
+    padding: 20px; /* Espacio interno */
+    color: white; /* Color del texto */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Sombra opcional para darle profundidad */
+}
+
+.formPremium label {
+    color: white; /* Asegúrate de que las etiquetas sean visibles */
+}
+
+.formPremium select {
+    background-color: #333; /* Fondo para los select */
+    color: white; /* Color del texto en los select */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados para los select */
+    padding: 10px; /* Espacio interno */
+    width: 100%; /* Ancho completo */
+    margin-top: 5px; /* Espacio arriba */
+}
+
+.formPremium input[type="checkbox"] {
+    accent-color: #f6c24e; /* Color del checkbox (puedes cambiarlo) */
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* Centra el botón */
+    margin-top: 20px; /* Espacio superior */
+}
+
