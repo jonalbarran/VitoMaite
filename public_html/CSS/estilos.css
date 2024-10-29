@@ -127,6 +127,21 @@ button:hover:after {
     transition: all 0.5s;
 }
 
+
+.indexBuscarAmorICN {
+    width: 150px;
+    height: auto;
+    max-width: 100%;
+}
+.indexBuscarAmorICN {
+    margin-top: 10px;
+        
+        
+    width: 50px;
+    height: auto;
+    max-width: 100%;
+}
+
 /*Formulario y BotonBuscarNoLog----------------------------------------------------------------------*/
 
 .form {
