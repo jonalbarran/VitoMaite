@@ -12,8 +12,26 @@ document.addEventListener('DOMContentLoaded', function () {
         const edadMax = parseInt(document.getElementById('edad-max').value, 10);
         const ciudad = document.getElementById('ciudad').value;
 
+        if(edadMin>edadMax){
+            document.getElementById('EtiquetaErrores').textContent = 'LA EDAD MÁXIMA TIENE QUE SER MAYOR QUE LA MÍNIMA';
+            borrarTabla();
+        }else if(edadMin<18){
+             document.getElementById('EtiquetaErrores').textContent = 'LA EDAD DEBE SER MAYOR QUE 18';
+             borrarTabla();
+        } else if(edadMax>99){
+             document.getElementById('EtiquetaErrores').textContent = 'LA EDAD DEBE SER MENOR QUE 99';
+             borrarTabla();
+        }else if(isNaN(edadMin) || isNaN(edadMax)){
+             document.getElementById('EtiquetaErrores').textContent = 'RELLENA LOS CAMPOS DE EDAD';
+             borrarTabla();
+             
+        }
+        else{
         // Buscar en la base de datos
+        document.getElementById('EtiquetaErrores').textContent = '';
+        
         buscarUsuarios(genero, edadMin, edadMax, ciudad);
+    }
     });
 });
 
@@ -39,7 +57,7 @@ function buscarUsuarios(genero, edadMin, edadMax, ciudad) {
     console.log("ciudad (filtro):", ciudad, "usuario.ciudad:", usuario.ciudad);
     console.log("edadMin:", edadMin, "usuario.edad:", usuario.edad);
     console.log("edadMax:", edadMax, "usuario.edad:", usuario.edad);
-    console.log("preferencia (filtro):", genero, "usuario.genero:", usuario.genero);
+    console.log( "usuario.genero:", usuario.genero);
 
     // Filtrar por criterios
     if (
@@ -50,10 +68,12 @@ function buscarUsuarios(genero, edadMin, edadMax, ciudad) {
     ) {
         resultados.push(usuario);
         
+    
     }
 
     cursor.continue(); // Continuar con el siguiente registro
 } else {
+    resultados.sort((a, b) => a.edad - b.edad);
     // Mostrar los resultados una vez completada la búsqueda
     mostrarResultados(resultados);
 }
@@ -66,14 +86,14 @@ function buscarUsuarios(genero, edadMin, edadMax, ciudad) {
     };
 }
 
+
 function mostrarResultados(resultados) {
     const main = document.querySelector('main');
-    const tablaExistente = document.querySelector('#tabla-usuarios');
-    if (tablaExistente) tablaExistente.remove(); // Eliminar tabla anterior si existe
+    borrarTabla(); 
+    
     const mensaje = document.createElement('p');
     if (resultados.length === 0) {
-        mensaje.textContent = "No se encontraron resultados.";
-        main.appendChild(mensaje);
+        document.getElementById('EtiquetaErrores').textContent = 'NO HAY USUARIOS CON LOS CRITERIOS SELECCIONADOS';
         return;
     }else{
     mensaje.textContent = " ";
@@ -97,15 +117,29 @@ function mostrarResultados(resultados) {
         const fila = document.createElement('tr');
         var fotoUsuario = document.createElement("img");
         fotoUsuario.src = "img/" + usuario.foto;
+                console.log("1");
         fila.innerHTML = `
             <td>${usuario.nombre}</td>
             <td>${usuario.edad}</td>
-           <td><img src="" alt="ImagenUsuarioTablaNoLog"></td>
-            <td><a h ref="index.html" class="btn-detalles">Más detalles</a></td>
+            <td><img src="${usuario.imagen}" alt="ImagenUsuarioBNL"></td>
+            <td><a href="index.html" class="btn-detalles">Más detalles</a></td>
+            
         `;
+        console.log(usuario.imagen);
         tabla.appendChild(fila);
+        
+
     });
 
     main.appendChild(tabla); // Agregar la tabla al `main`
 }
+}
+
+function borrarTabla(){
+    const tablaExistente = document.querySelector('#tabla-usuarios');
+    
+    // Eliminar tabla anterior si existe
+    if (tablaExistente){
+        tablaExistente.remove();
+    } 
 }
