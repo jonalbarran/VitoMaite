@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }else if(edadMin<18){
              document.getElementById('EtiquetaErrores').textContent = 'LA EDAD DEBE SER MAYOR QUE 18';
              borrarTabla();
-        } else if(edadMax>99){
-             document.getElementById('EtiquetaErrores').textContent = 'LA EDAD DEBE SER MENOR QUE 99';
+        } else if(edadMax>101){
+             document.getElementById('EtiquetaErrores').textContent = 'LA EDAD DEBE SER MENOR QUE 101';
              borrarTabla();
         }else if(isNaN(edadMin) || isNaN(edadMax)){
              document.getElementById('EtiquetaErrores').textContent = 'RELLENA LOS CAMPOS DE EDAD';
@@ -61,10 +61,10 @@ function buscarUsuarios(genero, edadMin, edadMax, ciudad) {
 
     // Filtrar por criterios
     if (
-        (ciudad === '' || usuario.ciudad === ciudad) &&
-        (isNaN(edadMin) || usuario.edad >= edadMin) &&
-        (isNaN(edadMax) || usuario.edad <= edadMax) &&
-        (genero === '' || usuario.genero === genero)
+        (usuario.ciudad === ciudad) &&
+        (usuario.edad >= edadMin) &&
+        ( usuario.edad <= edadMax) &&
+        (usuario.genero === genero)
     ) {
         resultados.push(usuario);
         
