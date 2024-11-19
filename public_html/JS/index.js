@@ -27,7 +27,16 @@ function validarDatos() {
             if (usuario && usuario.contrasena === contrasena) {
                 // Si el email y la contraseña coinciden, redirigir a Inicio.html
                 window.location.href = "Inicio.html";
-                sessionStorage.setItem('usuario', JSON.stringify(usuario));
+                sessionStorage.setItem("id", usuario.id);
+        sessionStorage.setItem("mail", usuario.mail);
+        sessionStorage.setItem("contrasena", usuario.contrasena);
+        sessionStorage.setItem("genero", usuario.genero);
+        sessionStorage.setItem("nombre", usuario.nombre);
+        sessionStorage.setItem("apellido", usuario.apellido);
+        sessionStorage.setItem("edad", usuario.edad);
+        sessionStorage.setItem("premium", usuario.premium);
+        sessionStorage.setItem("ciudad", usuario.ciudad);
+        sessionStorage.setItem("imagen", usuario.imagen);
             } else {
                 alert("Credenciales incorrectas. Intenta de nuevo.");
             }
