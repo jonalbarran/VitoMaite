@@ -144,6 +144,12 @@ button:hover:after {
 
 /*Formulario y BotonBuscarNoLog----------------------------------------------------------------------*/
 
+img[alt="ImagenUsuarioBNL"] {
+    filter: blur(4px);
+    width: 200px;
+    height: 200px;
+}
+
 .form {
     max-width: 320px;
     width: 100%;
@@ -200,7 +206,7 @@ button:hover:after {
     transition: all 0.2s ease-in-out;
 }
 
-/*BotonBuscarNoLogueado-------------------------------------------------------------------*/
+/*BuscarNoLogueado-------------------------------------------------------------------*/
 
 .BotonBuscarNoLog {
     padding: 15px 20px;
@@ -218,9 +224,78 @@ button:hover:after {
     text-align: center;
 }
 
-.button:hover {
-    transform: translateY(-3px);
+#form-buscar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    max-width: 800px;
+    margin-top: 15px; /* Sólo margen superior */
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    margin-left: auto;
+    margin-right: auto; /* Asegura el centrado horizontal */
 }
+#EtiquetaErrores {
+    display: block;
+    text-align: center;
+    color: red;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+
+#form-buscar label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+#form-buscar select,
+#form-buscar input,
+#form-buscar button {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 200px;
+    box-sizing: border-box;
+}
+
+#form-buscar button {
+    background-color: #ff6f61; /* Rojo claro */
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#form-buscar button:hover {
+    background-color: #ff4b3a; /* Rojo más oscuro al pasar el ratón */
+}
+
+#form-buscar input[type="number"] {
+    
+    width: 150px;
+}
+
+@media (max-width: 600px) {
+    #form-buscar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #form-buscar select,
+    #form-buscar input,
+    #form-buscar button {
+        width: 100%;
+    }
+}
+
 
 .button-span {
     color: #aaa;
@@ -593,4 +668,37 @@ td button:hover {
     justify-content: center; /* Centra el botón */
     margin-top: 20px; /* Espacio superior */
 }
+
+/* Inicio.html------------------------------------------------------------------------------------- */
+
+/* Imagen del usuario */
+#fotoUsuario {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Hacer la imagen redonda */
+    object-fit: cover; /* Ajustar la imagen al contenedor */
+}
+
+/* Texto del mensaje de bienvenida */
+#mensajeBienvenida {
+    color: white; /* Texto en blanco */
+    font-size: 16px; /* Tamaño de fuente */
+    margin-right: 10px; /* Espaciado entre el mensaje y la imagen */
+}
+
+/* Botón de cerrar sesión */
+#cerrarSesionBtn {
+    background-color: #555; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 5px 10px; /* Espaciado interno */
+    cursor: pointer; /* Cambia el cursor a "pointer" */
+    transition: background-color 0.3s ease; /* Animación al pasar el ratón */
+}
+
+#cerrarSesionBtn:hover {
+    background-color: #333; /* Color de fondo más oscuro al pasar el ratón */
+}
+
 
