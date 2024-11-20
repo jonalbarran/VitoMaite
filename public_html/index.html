@@ -6,42 +6,56 @@
     <link rel="stylesheet" type="text/css" href="CSS/estilos.css">
     <title>VITOMAITE</title>
     <link rel="icon" type="image/ico" href="img/logomini.ico"/>
-</head>
+</head>  
 <body>
     <header>
         <div class="logo">
             <img src="IMG/logo1.png" alt="" onclick="window.location.href='index.html'">
         </div>
         <nav>
-            <button id="botonIni" class="btn" onclick="window.location.href='registro.html'">Registro</button>
-            <button id="botonIni2" class="btn" onclick="window.location.href='index.html'">Login</button>
+            <button id="botonIni" class="btn" onclick="window.location.href='login.html'">Login</button>
+            
         </nav>
     </header>
 
-    <main class="mainclass">
-        <form class="form">
-            <span class="title">Inicia Sesión</span>
-            <label for="email">Mail</label>
-            <input type="email" id="email" name="email" class="input" required>
-            <label for="password">Contraseña</label>
-            <input type="password" id="password" name="password" class="input" required>
-            <button type="submit" class="submit">Iniciar Sesión</button>
-            <h4>¿No estás registrado? <a href="registro.html">Haz clic aquí</a></h4>
+    <main>
+       <form id="form-buscar">
+    <label for="preferencia">Qué estás buscando</label>
+    <select id="preferencia" name="preferencia">
+        <option value="Femenino">Soy hombre y busco mujer</option>
+        <option value="Masculino">Soy hombre y busco hombre</option>
+        <option value="Masculino">Soy mujer y busco hombre</option>
+        <option value="Femenino">Soy mujer y busco mujer</option>
+        
+        
+    </select>
 
-        </form>
+    <label for="ciudad">Ciudad</label>
+    <select id="ciudad" name="ciudad">
+        <option value="Bilbao">Bilbao</option>
+        <option value="Donosti">Donosti</option>
+        <option value="Vitoria">Vitoria</option>
+    </select>
+    <br>
+    <label for="edad-min">Edad mínima</label>
+    <input type="number" id="edad-min" name="edad-min" >
+
+    <label for="edad-max">Edad máxima</label>
+    <input type="number" id="edad-max" name="edad-max" >
+
+    
+
+    <button type="submit">Buscar Candidato/a</button>
+</form>
+
+        <label id="EtiquetaErrores"></label>
+        
+        <div id="resultados">
+        <!-- Tabla dinámica-->
+    </div>
 
         
         
-        <div>
-            <button class="BotonBuscarNoLog" onclick="window.location.href='buscarNoLogueado.html'">
-               
-                 BUSCA USUARIOS COMPATIBLES 
-            
-                <!--<span class="button-span"> <br> ─ sin compromiso</span>*/ -->
-                <br>
-                 <img src="IMG/buscarAmorICN.png" alt="" class="indexBuscarAmorICN">  
-            </button>
-        </div>
     </main>
 
     <footer id="main-footer">
@@ -59,7 +73,7 @@
             </div>
         </div>
     </footer>
-
+    
     <script src="JS/index.js"></script>
 </body>
 </html>
