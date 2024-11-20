@@ -410,9 +410,9 @@ function agregarDatos(db) {
     });
 
     // Me gusta de ejemplo
-    meGustaStore.add({ user1: "pepe@xx", user2: "maria@xx", ok: 2 });
-    meGustaStore.add({ user1: "pepe@xx", user2: "juan@xx", ok: 1 });
-    meGustaStore.add({ user1: "jabi@xx", user2: "mary@xx", ok: 1 });
+    meGustaStore.add({ user1: "carla.perez@example.com", user2: "omar.lopez@example.com", ok: 2 });
+    meGustaStore.add({ user1: "laura.sanchez@example.com", user2: "carla.perez@example.com", ok: 1 });
+    meGustaStore.add({ user1: "omar.lopez@example.com", user2: "laura.sanchez@example.com", ok: 2 });
     
     
     }
