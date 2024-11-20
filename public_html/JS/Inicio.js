@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
     // Recuperar el nombre y apellido del sessionStorage
     
@@ -38,41 +39,179 @@ const cerrarSesionBtn = document.getElementById("cerrarSesionBtn");
         
     });
 }
-function botonMostrarVisitas(){
-    const request = indexedDB.open("VitoMaite05", 1);
-    const boton = document.getElementById('MostrarVisitas');
-    const contenedorTabla = document.getElementById('TablaVisitas');
-    
-    boton.addEventListener('click', function()) {
-    // Limpiar el contenido previo (si existe)
-    contenedorTabla.innerHTML = '';
-    const tabla = document.createElement('table');
-    const filaCabecera = document.createElement('tr');
-    const columnas = ['Nombre', 'Fecha', 'Motivo'];
-    columnas.forEach(columna => {
-        const th = document.createElement('th');
-        th.textContent = columna;
-        filaCabecera.appendChild(th);
-   });
-   cabecera.appendChild(filaCabecera);
-    tabla.appendChild(cabecera);
 
-   const cuerpo = document.createElement('tbody');
-    visitas.forEach(visita => {
-        const fila = document.createElement('tr');
-        Object.values(visita).forEach(valor => {
-            const td = document.createElement('td');
-            td.textContent = valor;
-            fila.appendChild(td);
-        });
-        cuerpo.appendChild(fila);
-    });
-    tabla.appendChild(cuerpo);
+document.getElementById("mostrarLikes").addEventListener('click', function () {
+    console.log("mis likes");
 
-    // Agregar la tabla al contenedor
-    contenedorTabla.appendChild(tabla);
-}    
+    var contenedorLikes = document.getElementById("contenedorLikes");
+    contenedorLikes.innerHTML = '';
+
+    mostrarLikes();
+
+}
+);
+
 function mostrarLikes() {
+    console.log("He llegado");
     var request = indexedDB.open("VitoMaite05", 1);
+
+    var contenedorLikes = document.getElementById("contenedorLikes");
+    contenedorLikes.innerHTML = "";
+
     
+
+    request.onsuccess = function (evento) {
+        console.log("He llegado");
+        var db = evento.target.result;
+        var transaccion = db.transaction(["meGusta"], "readonly");
+        var visitasStore = transaccion.objectStore("meGusta");
+        var cursor = visitasStore.openCursor();
+
+        var tienesLikes = false;
+        var hayLikesEnTabla = false;
+        var emailUsuario = sessionStorage.getItem('mail');
+
+        cursor.onsuccess = function (eventoCursor) {
+            var resultado = eventoCursor.target.result;
+
+if (resultado) {
+        console.log("Registro encontrado:", resultado.value);
+
+        var like = resultado.value;
+
+        if (like.user2 === emailUsuario) {
+            hayLikesEnTabla = true;
+            tienesLikes = true;
+            agregarLikeALaInterfaz(like);
+        }
+
+        resultado.continue();
+    } else {
+        console.log("Fin del cursor.");
+        if (!hayLikesEnTabla) {
+            alert("No hay likes!");
+        } else if (!tienesLikes) {
+            console.log("No tienes likes a tu perfil!\n :/");
+        }
+    }
+        };
+
+        cursor.onerror = function () {
+            console.error("Error al abrir el cursor.");
+        };
+    };
+
+    request.onerror = function () {
+        console.error("Error al abrir la base de datos");
+    };
+}
+
+function agregarLikeALaInterfaz(like) {
+
+    var contenedorLikes = document.getElementById("contenedorLikes");
+
+    var tablaLikes = document.createElement("table");
+
+    tablaLikes.className = "tabla-likes";
+
+    // Crear la fila de la cabecera
+    var filaCabecera = document.createElement("tr");
+
+    // Crear celdas de la cabecera
+    var fechaCabecera = document.createElement("th");
+    fechaCabecera.textContent = "Fecha Like";
+
+    var usuarioCabecera = document.createElement("th");
+    usuarioCabecera.textContent = "Usuario";
+
+    // Agregar celdas de la cabecera a la fila de la cabecera
+    filaCabecera.appendChild(fechaCabecera);
+    filaCabecera.appendChild(usuarioCabecera);
+
+    //añades la cabecera
+    tablaLikes.appendChild(filaCabecera);
+
+    // Crear una fila para cada like
+    var filaLike = document.createElement("tr");
+
+    // Crear celdas para mostrar la información del artículo
+    var fechaCelda = document.createElement("td");
+
+    fechaStalking = extraerFecha(like.fecha);
+
+    fechaCelda.textContent = fechaStalking;
+
+    var usuarioCelda = document.createElement("td");
+
+    emailUsuario = like.user1;
+
+    obtenerInformacionUsuario(emailUsuario, function (usuario) {
+        if (usuario) {
+       
+            nickStalcker = usuario.nombre; 
+            usuarioCelda.textContent = nickStalcker;
+
+
+        } else {
+            console.log("Usuario no encontrado o error al buscar.");
+        }
+    });
+
+    var botonDetalles = document.createElement("button");
+    // Agregar celdas a la fila del artículo
+    filaLike.appendChild(fechaCelda);
+    filaLike.appendChild(usuarioCelda);
+    filaLike.appendChild(botonDetalles);
+
+    botonDetalles.textContent = "Detalles";
+    botonDetalles.addEventListener("click", function () {
+        mostrarDetallesLike(); 
+    });
+
+    tablaLikes.appendChild(filaLike);
+
+    contenedorLikes.appendChild(tablaLikes);
+}
+
+
+function extraerFecha(fechaConHora) {
+    const [fecha] = fechaConHora.split('T');
+    return fecha;
+}
+
+
+function obtenerInformacionUsuario(mail, callback) {
+    var request = indexedDB.open("vitomaitebd", 1);
+
+    request.onsuccess = function (evento) {
+        var db = evento.target.result;
+        var transaccion = db.transaction(["Usuarios"], "readonly");
+        var usuariosStore = transaccion.objectStore("Usuarios");
+
+        // Buscar el usuario por email usando el índice
+        var indiceEmail = usuariosStore.index("mail");
+        var cursor = indiceEmail.openCursor(IDBKeyRange.only(mail));
+
+        cursor.onsuccess = function (eventoCursor) {
+            var resultado = eventoCursor.target.result;
+
+            if (resultado) {
+      
+                callback(resultado.value);
+            } else {
+                
+                callback(null);
+            }
+        };
+
+        cursor.onerror = function () {
+            console.error("Error al buscar el usuario");
+            callback(null);
+        };
+    };
+
+    request.onerror = function () {
+        console.error("Error al abrir la base de datos");
+        callback(null);
+    };
 }
