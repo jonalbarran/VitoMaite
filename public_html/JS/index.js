@@ -153,7 +153,7 @@ function abrirBaseDeDatos() {
 
         // Crear el objectStore de "Usuarios" solo si no existe
         if (!db.objectStoreNames.contains("Usuarios")) {
-            var usuariosStore = db.createObjectStore("Usuarios", {keyPath: "mail"});
+            var usuariosStore = db.createObjectStore("Usuarios", {keyPath: "id", autoIncrement: true});
             usuariosStore.createIndex("mail", "mail", {unique: true});
             usuariosStore.createIndex("contrasena", "contrasena", {unique: false});
             usuariosStore.createIndex("genero", "genero", {unique: false});

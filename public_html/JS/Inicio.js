@@ -181,7 +181,7 @@ function extraerFecha(fechaConHora) {
 
 
 function obtenerInformacionUsuario(mail, callback) {
-    var request = indexedDB.open("vitomaitebd", 1);
+    var request = indexedDB.open("VitoMaite05", 1);
 
     request.onsuccess = function (evento) {
         var db = evento.target.result;
