@@ -52,7 +52,6 @@ document.getElementById("mostrarLikes").addEventListener('click', function () {
 );
 
 function mostrarLikes() {
-    console.log("He llegado");
     var request = indexedDB.open("VitoMaite05", 1);
 
     var contenedorLikes = document.getElementById("contenedorLikes");
@@ -120,13 +119,16 @@ function agregarLikeALaInterfaz(like) {
     // Crear celdas de la cabecera
     var fechaCabecera = document.createElement("th");
     fechaCabecera.textContent = "Fecha Like";
-
+    
+    var esMatchCabecera = document.createElement('th');
+    esMatchCabecera.textContent="Match";
     var usuarioCabecera = document.createElement("th");
     usuarioCabecera.textContent = "Usuario";
 
     // Agregar celdas de la cabecera a la fila de la cabecera
     filaCabecera.appendChild(fechaCabecera);
     filaCabecera.appendChild(usuarioCabecera);
+    filaCabecera.appendChild(esMatchCabecera);
 
     //añades la cabecera
     tablaLikes.appendChild(filaCabecera);
@@ -156,7 +158,23 @@ function agregarLikeALaInterfaz(like) {
             console.log("Usuario no encontrado o error al buscar.");
         }
     });
+       var matchCelda = document.createElement("td"); // Celda para la imagen de "Match"
+       
+       var imgMatch = document.createElement("img");
+    imgMatch.style.width = "20px"; // Ajustar tamaño
+    imgMatch.style.height = "20px"; // Ajustar tamaño
 
+    // Lógica para mostrar la imagen según el valor del like.match
+    if (like.match) { // Si hay "match"
+        imgMatch.src = "data:image/png;base64,iVBORw0..."; // Reemplaza con tu base64
+        imgMatch.alt = "Match"; // Texto alternativo
+    } else {
+        imgMatch.src = "data:image/png;base64,..."; // Otra imagen o deja vacío si no hay
+        imgMatch.alt = "No Match"; // Texto alternativo
+    }
+    
+    
+    
     var botonDetalles = document.createElement("button");
     // Agregar celdas a la fila del artículo
     filaLike.appendChild(fechaCelda);
