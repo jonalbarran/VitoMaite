@@ -165,13 +165,15 @@ function agregarLikeALaInterfaz(like) {
     imgMatch.style.height = "20px"; // Ajustar tamaño
 
     // Lógica para mostrar la imagen según el valor del like.match
-    if (like.match) { // Si hay "match"
-        imgMatch.src = "data:image/png;base64,iVBORw0..."; // Reemplaza con tu base64
+    if (like.like==="2") { // Si hay "match"
+        imgMatch.src = "IMG/corazonLike.png"; // Reemplaza con tu base64
         imgMatch.alt = "Match"; // Texto alternativo
     } else {
-        imgMatch.src = "data:image/png;base64,..."; // Otra imagen o deja vacío si no hay
+        imgMatch.src = ""; // Otra imagen o deja vacío si no hay
         imgMatch.alt = "No Match"; // Texto alternativo
     }
+    
+    matchCelda.appendChild(imgMatch);
     
     
     
@@ -179,7 +181,9 @@ function agregarLikeALaInterfaz(like) {
     // Agregar celdas a la fila del artículo
     filaLike.appendChild(fechaCelda);
     filaLike.appendChild(usuarioCelda);
+    filaLike.appendChild(matchCelda);
     filaLike.appendChild(botonDetalles);
+    
 
     botonDetalles.textContent = "Detalles";
     botonDetalles.addEventListener("click", function () {

@@ -178,8 +178,8 @@ function abrirBaseDeDatos() {
             meGustaStore.createIndex("like", "like", {unique: false});
         }
         meGustaStore.add({ user1: "carla.perez@example.com", user2: "omar.lopez@example.com",fecha: "03-11-2024T15:47", like: "2" });
-        meGustaStore.add({ user1: "laura.sanchez@example.com", user2: "carla.perez@example.com",fecha: "03-11-2024T15:47", like: "1" });
-        meGustaStore.add({ user1: "omar.lopez@example.com", user2: "laura.sanchez@example.com",fecha: "03-11-2024T15:47", like: "1" });
+        meGustaStore.add({ user1: "laura.sanchez@example.com", user2: "omar.lopez@example.com",fecha: "03-11-2024T15:47", like: "2" });
+        meGustaStore.add({ user1: "omar.lopez@example.com", user2: "laura.sanchez@example.com",fecha: "03-11-2024T15:47", like: "2" });
 
         console.log("Almacenes de objetos creados con éxito.");
     };
