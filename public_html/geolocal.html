@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/ico" href="img/logomini.ico"/>
         <link rel="stylesheet" type="text/css" href="CSS/geolocal.css">
+        <script src="JS/config.js"></script>  <!-- Cargar el archivo de configuración -->
     </head>
     <body>
         <div id="title">
@@ -21,7 +22,15 @@
                 <option value="2">2 km</option>
             </select>
         </div>
+        
+        <!-- Cargar el archivo JS que contiene la clave de la API -->
         <script src="JS/geolocal.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKNaprGw6X1EqOcSAwV53JnYC7mgjKu_A&callback=initMap"></script>
+
+        <script>
+            // Crear el script para cargar la API de Google Maps dinámicamente
+            const script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${config.googleMapsApiKey}&callback=initMap`;
+            document.head.appendChild(script);  // Añadir el script al encabezado del documento
+        </script>
     </body>
 </html>
