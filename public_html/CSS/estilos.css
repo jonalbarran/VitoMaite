@@ -11,6 +11,7 @@ body {
     font-family: sans-serif;
     margin: 0;
     overflow-x: hidden;
+    background: linear-gradient(45deg, #ff3e3e, #ffcc70);
 }
 
 .mainclass {
@@ -22,7 +23,7 @@ body {
     background-size: cover;
     background-position: center;
     min-height: 100vh;
-    height: 150vh;
+    height: 100vh;
     width: 100%;
 }
 
@@ -32,8 +33,8 @@ body {
 }
 
 .logo img {
-    height: 80px;
-    margin-right: 10px;
+    height: 70px;
+    margin-left: 10px;
 }
 
 /*Resizable--------------------------------------------------------------------*/
@@ -89,44 +90,22 @@ html, body {
 /*Botones ------------------------------------------------------------------------------------------------*/
 
 .btn {
-    width: 6.5em;
-    height: 2.3em;
-    margin: 0.5em;
+    padding: 10px;
+    margin-right: 10px;
     background: rgb(246, 110, 78);
     color: White;
     border: none;
-    border-radius: 0.625em;
+    border-radius: 50px;
     font-size: 20px;
-    font-weight: bold;
     cursor: pointer;
     position: relative;
     z-index: 1;
     overflow: hidden;
 }
 
-button:hover {
-    color: black;
+.btn:hover{
+    background-color: #ff4c4c;
 }
-
-button:after {
-    content: "";
-    background: white;
-    position: absolute;
-    z-index: -1;
-    left: -20%;
-    right: -20%;
-    top: 0;
-    bottom: 0;
-    transform: skewX(-45deg) scale(0, 1);
-    transition: all 0.5s;
-}
-
-button:hover:after {
-    transform: skewX(-45deg) scale(1, 1);
-    -webkit-transition: all 0.5s;
-    transition: all 0.5s;
-}
-
 
 .indexBuscarAmorICN {
     width: 150px;
