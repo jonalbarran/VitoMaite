@@ -1,79 +1,79 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="CSS/estilos.css">
-    <title>VITOMAITE</title>
-    <link rel="icon" type="image/ico" href="img/logomini.ico"/>
-</head>  
-<body>
-    <header>
-        <div class="logo">
-            <img src="IMG/logo1.png" alt="" onclick="window.location.href='index.html'">
-        </div>
-        <nav>
-            <button id="botonIni" class="btn" onclick="window.location.href='login.html'">Login</button>
-            
-        </nav>
-    </header>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="CSS/estilos.css">
+        <title>VITOMAITE</title>
+        <link rel="icon" type="image/ico" href="img/logomini.ico"/>
+    </head>  
+    <body>
+        <header>
+            <div class="logo">
+                <img src="IMG/logo1.png" alt="" onclick="window.location.href = 'index.html'">
+            </div>
+            <nav>
+                <button id="botonIni" class="btn" onclick="window.location.href = 'login.html'">Login</button>
 
-    <main>
-       <form id="form-buscar">
-    <label for="preferencia">Qué estás buscando</label>
-    <select id="preferencia" name="preferencia">
-        <option value="Femenino">Soy hombre y busco mujer</option>
-        <option value="Masculino">Soy hombre y busco hombre</option>
-        <option value="Masculino">Soy mujer y busco hombre</option>
-        <option value="Femenino">Soy mujer y busco mujer</option>
-        
-        
-    </select>
+            </nav>
+        </header>
 
-    <label for="ciudad">Ciudad</label>
-    <select id="ciudad" name="ciudad">
-        <option value="Bilbao">Bilbao</option>
-        <option value="Donosti">Donosti</option>
-        <option value="Vitoria">Vitoria</option>
-    </select>
-    <br>
-    <label for="edad-min">Edad mínima</label>
-    <input type="number" id="edad-min" name="edad-min" >
+        <main>
+            <form id="form-buscar">
+                <label for="preferencia">Qué estás buscando</label>
+                <select id="preferencia" name="preferencia">
+                    <option value="Femenino">Soy hombre y busco mujer</option>
+                    <option value="Masculino">Soy hombre y busco hombre</option>
+                    <option value="Masculino">Soy mujer y busco hombre</option>
+                    <option value="Femenino">Soy mujer y busco mujer</option>
 
-    <label for="edad-max">Edad máxima</label>
-    <input type="number" id="edad-max" name="edad-max" >
 
-    
+                </select>
 
-    <button type="submit">Buscar Candidato/a</button>
-</form>
+                <label for="ciudad">Ciudad</label>
+                <select id="ciudad" name="ciudad">
+                    <option value="Bilbao">Bilbao</option>
+                    <option value="Donosti">Donosti</option>
+                    <option value="Vitoria">Vitoria</option>
+                </select>
+                <br>
+                <label for="edad-min">Edad mínima</label>
+                <input type="number" id="edad-min" name="edad-min" >
 
-        <label id="EtiquetaErrores"></label>
-        
-        <div id="resultados">
-        <!-- Tabla dinámica-->
-    </div>
+                <label for="edad-max">Edad máxima</label>
+                <input type="number" id="edad-max" name="edad-max" >
 
-        
-        
-    </main>
 
-    <footer id="main-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <h3>Desarrolladores</h3>
-                    <ul>
-                        <li>Jon Albarrán</li>
-                        <li>Mikel Martin</li>
-                        <li>Andoni Gonzalez</li>
-                    </ul>
-                    <h4>&copy; 2024 Vitomaite. Todos los derechos reservados. Esta aplicación y su contenido están protegidos por leyes de copyright y propiedad intelectual. El uso no autorizado está prohibido.</h4>
+
+                <button type="submit">Buscar Candidato/a</button>
+            </form>
+            <button onclick="window.location.href = 'geolocal.html'">Buscar por geolocalización</button>
+            <label id="EtiquetaErrores"></label>
+
+            <div id="resultados">
+                <!-- Tabla dinámica-->
+            </div>
+
+
+
+        </main>
+
+        <footer id="main-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h3>Desarrolladores</h3>
+                        <ul>
+                            <li>Jon Albarrán</li>
+                            <li>Mikel Martin</li>
+                            <li>Andoni Gonzalez</li>
+                        </ul>
+                        <h4>&copy; 2024 Vitomaite. Todos los derechos reservados. Esta aplicación y su contenido están protegidos por leyes de copyright y propiedad intelectual. El uso no autorizado está prohibido.</h4>
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
-    
-    <script src="JS/index.js"></script>
-</body>
+        </footer>
+
+        <script src="JS/index.js"></script>
+    </body>
 </html>

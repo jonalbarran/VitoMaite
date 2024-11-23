@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+
+body {
+    background: linear-gradient(45deg, #ff3e3e, #ffcc70);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#title{
+    font-size: 5vw;
+    margin: 5px;
+}
+
+p{
+    color: white;
+    text-shadow: 2px 2px 5px black;
+    font-weight: bold;
+}
+
+#map {
+    display: flex;
+    margin: auto;
+    height: 80vh;
+    width: 80vw;
+    padding: 0;
+    border: none;
+}
+
+#controls {
+    height: 10vh; 
+    padding: 10px;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: Arial, sans-serif;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Buscar por geolocalización</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/ico" href="img/logomini.ico"/>
+        <link rel="stylesheet" type="text/css" href="CSS/geolocal.css">
+    </head>
+    <body>
+        <div id="title">
+            <p>GENTE CERCA DE TÍ</p>
+        </div>
+        <div id="map"></div>
+        <div id="controls">
+            <label for="distance">Selecciona la distancia (km): </label>
+            <select id="distance">
+                <option value="0.5">0.5 km</option>
+                <option value="1">1 km</option>
+                <option value="1.5">1.5 km</option>
+                <option value="2">2 km</option>
+            </select>
+        </div>
+        <script src="JS/geolocal.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKNaprGw6X1EqOcSAwV53JnYC7mgjKu_A&callback=initMap"></script>
+    </body>
+</html>
