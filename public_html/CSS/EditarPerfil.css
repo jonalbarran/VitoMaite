@@ -6,8 +6,6 @@
 }
 
 body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
     overflow-x: hidden;
     background: linear-gradient(45deg, #ff3e3e, #ffcc70);
 }
@@ -16,21 +14,18 @@ body {
     width: 0;
 }
 
+
 /* ------ HEADER SECTION ------ */
 
 
-
 .imagen-flecha {
-    width: 40px; /* Ajusta el ancho de la imagen */
-    height: 40px; /* Ajusta la altura de la imagen */
-    object-fit: contain; /* Mantiene las proporciones de la imagen */
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
 }
 
-
-
 header {
-    display: flex; 
-    justify-content:flex-start; 
+    display: flex;
     min-height: 70px;
     background-color: black;
     align-items: center;
@@ -47,20 +42,13 @@ header {
     border-radius: 50px;
     font-size: 20px;
     cursor: pointer;
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
     width: 20px;
     height: 20px;
-    object-fit: contain;
 }
 
 .btn:hover{
     background-color: #ff4c4c;
 }
-
-
-
 
 
 /* ------ Botón atras ------ */
@@ -74,7 +62,6 @@ header {
     cursor: pointer;
     transition: background-color 0.3s ease;
     font-size: 16px;
-    position: absolute;
     top: 10px;
     right: 10px;
     width: auto;
@@ -85,6 +72,93 @@ header {
 }
 
 
+
+/* ------ MAIN SECTION ------ */
+
+main {
+    height: 100vh;
+}
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.editar-perfil {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    text-align: center;
+    width: 50vw;
+    margin-top: 50px;
+}
+
+.editar-perfil {
+    text-align: center;
+}
+
+.title {
+    font-size: 3vw;
+    font-weight: bold;
+}
+
+
+#nombreFoto {
+    margin-top: 10px;
+    font-style: italic;
+    color: #555;
+}
+
+/* Círculo para la imagen */
+.imagen-circulo {
+    display: inline-block;
+    width: 200px; /* Tamaño del círculo */
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden; /* Contenido limitado al círculo */
+    border: 2px solid #ccc; /* Bordes decorativos */
+    cursor: pointer; /* Cursor indica clickeable */
+    position: relative;
+    background-color: #f4f4f4;
+}
+
+.imagen-circulo:hover {
+    opacity: 0.9;
+}
+
+.imagen-circulo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* La imagen cubre todo el círculo */
+    vertical-align: middle;
+}
+
+#fotoUsuarioEP {
+    width: 100%; /* Se ajusta al tamaño del círculo */
+    height: 100%;
+    border-radius: 50%; /* Asegura la forma circular */
+}
+
+
+.save {
+    background-color: #ff6b6b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    width: 100%;
+}
+
+.save:hover {
+    background-color: #ff4c4c;
+}
 
 
 
