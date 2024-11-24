@@ -165,12 +165,18 @@ function mostrarResultados(resultados) {
                 <td>${usuario.nombre}</td>
                 <td>${usuario.edad}</td>
                 <td><img src="${usuario.imagen}" alt="ImagenUsuarioBNL"></td>
-                <td><a href="index.html" class="btn-detalles">Más detalles</a></td>
-                <td><a href="index.html" class="btn-Like"><img id="fotoUsuarioEP" alt="Foto del usuario" src="IMG/logomini.png"></a></td></td>
+                <td><button class="btn-detalles" data-mail="${usuario.mail}">Más detalles</button></td>
             `;
-            
-            fila.appendChild(fotoUsuario);  // Agregar la foto a la fila
-            tabla.appendChild(fila);  // Añadir la fila a la tabla
+            tabla.appendChild(fila);
+        }
+    });
+
+    // Agregar un evento a todos los botones "Más detalles"
+    tabla.addEventListener('click', function (e) {
+        if (e.target.classList.contains('btn-detalles')) {
+            const mailUsuario = e.target.dataset.mail; // Obtener el correo del usuario
+            sessionStorage.setItem('usuarioSeleccionado', mailUsuario); // Guardar en sessionStorage
+            window.location.href = 'detalles.html'; // Redirigir a detalles.html
         }
     });
 
