@@ -135,7 +135,7 @@ async function mostrarResultados(resultados) {
     }
 
     // Limpiamos el mensaje de errores
-    document.getElementById('EtiquetaErrores').textContent = ''; 
+    document.getElementById('resultados').textContent = ''; 
 
     // Creamos una nueva tabla
     const tabla = document.createElement('table');
@@ -243,14 +243,10 @@ function obtenerAficionesUsuario(mail) {
                 }
             };
 
-            store.openCursor().onerror = function () {
-                reject("Error al leer el cursor");
-            };
+            
         };
 
-        request.onerror = function () {
-            reject("Error al abrir la base de datos");
-        };
+        
     });
 }
 
