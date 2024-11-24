@@ -140,6 +140,7 @@ function mostrarResultados(resultados) {
         <th>Edad</th>
         <th>Foto</th>
         <th>Mas detalles</th>
+        <th>Like</th>
     `;
     tabla.appendChild(encabezado);
 
@@ -165,6 +166,7 @@ function mostrarResultados(resultados) {
                 <td>${usuario.edad}</td>
                 <td><img src="${usuario.imagen}" alt="ImagenUsuarioBNL"></td>
                 <td><a href="index.html" class="btn-detalles">Más detalles</a></td>
+                <td><a href="index.html" class="btn-Like"><img id="fotoUsuarioEP" alt="Foto del usuario" src="IMG/logomini.png"></a></td></td>
             `;
             
             fila.appendChild(fotoUsuario);  // Agregar la foto a la fila
