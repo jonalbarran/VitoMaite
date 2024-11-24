@@ -129,16 +129,18 @@ function inicializarIndexedDB() {
 
 // Guardar la imagen en IndexedDB
 function guardarImagenEnIndexedDB(imagenBase64) {
-    const mailUsuario = obtenerIdUsuario(); // Usamos el correo electrónico del usuario
+    const mailUsuario = obtenerIdUsuario(); // Usamos el correo electrónico del usuario para obtener el ID
 
     const request = indexedDB.open("VitoMaite05", 1);
 
+    // En caso de que la base de datos sea creada o actualizada
     request.onupgradeneeded = function (event) {
         const db = event.target.result;
 
+        // Si la base de datos se está creando o actualizando, definimos el object store 'Usuarios'
         if (!db.objectStoreNames.contains("Usuarios")) {
-            const objectStore = db.createObjectStore("Usuarios", { keyPath: "mail" }); // 'mail' será la clave primaria
-            objectStore.createIndex("imagen", "imagen", { unique: false }); // Creando un índice para imagen si es necesario
+            const objectStore = db.createObjectStore("Usuarios", { keyPath: "ID", autoIncrement: true }); // 'ID' será la clave primaria
+            objectStore.createIndex("mail", "mail", { unique: true }); // También podemos crear un índice para 'mail' si lo necesitamos
         }
     };
 
@@ -149,20 +151,34 @@ function guardarImagenEnIndexedDB(imagenBase64) {
         const transaction = db.transaction("Usuarios", "readwrite");
         const store = transaction.objectStore("Usuarios");
 
-        // Creamos el objeto que vamos a guardar o actualizar
-        const imagenObjeto = {
-            mail: mailUsuario,
-            imagen: imagenBase64
+        // Primero, necesitamos obtener el ID del usuario a partir del mail
+        const index = store.index("mail"); // Creamos un índice para buscar por mail
+        const getByMailRequest = index.get(mailUsuario); // Usamos 'mailUsuario' para obtener el 'ID' del usuario
+
+        getByMailRequest.onsuccess = function () {
+            const usuario = getByMailRequest.result;
+
+            if (usuario) {
+                // Ahora tenemos el ID del usuario, podemos actualizar solo la imagen
+                usuario.imagen = imagenBase64; // Solo actualizamos el campo imagen
+
+                // Guardamos el objeto actualizado, usando el ID para la actualización
+                const putRequest = store.put(usuario);
+
+                putRequest.onsuccess = function () {
+                    console.log("Imagen actualizada correctamente en IndexedDB.");
+                };
+
+                putRequest.onerror = function (event) {
+                    console.error("Error al actualizar la imagen en IndexedDB:", event.target.errorCode);
+                };
+            } else {
+                console.log("Usuario no encontrado.");
+            }
         };
 
-        const putRequest = store.put(imagenObjeto);
-
-        putRequest.onsuccess = function () {
-            console.log("Imagen guardada en IndexedDB correctamente.");
-        };
-
-        putRequest.onerror = function (event) {
-            console.error("Error al guardar la imagen en IndexedDB:", event.target.errorCode);
+        getByMailRequest.onerror = function (event) {
+            console.error("Error al obtener el usuario por mail:", event.target.errorCode);
         };
     };
 
@@ -170,6 +186,7 @@ function guardarImagenEnIndexedDB(imagenBase64) {
         console.error("Error al abrir la base de datos para guardar la imagen:", event.target.errorCode);
     };
 }
+
 
 // Cargar la imagen desde IndexedDB
 function cargarImagenDesdeIndexedDB() {
