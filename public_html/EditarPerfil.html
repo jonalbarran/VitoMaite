@@ -28,15 +28,21 @@
                             <p>FOTO</p>
                         </div>
                         <div id="ciudadActual">
-                            <p><strong>Ciudad actual: </strong><span id="ciudad-actual"></span></p>
+                            <p>Ciudad actual: <span id="ciudad-actual"></span></p>
                         </div>
                         <div id="select-ciudad">
-                            <label for="ciudad">Cambiar ciudad: </label>
+                            <label for="ciudad">Cambiar a: </label>
                             <select id="ciudad">
                                 <option value="Vitoria">Vitoria</option>
                                 <option value="Bilbao">Bilbao</option>
                                 <option value="Donosti">Donosti</option>
                             </select>
+                        </div>
+                        <div>
+                            <button id="ver-aficiones">Ver Aficiones</button>
+                            <div id="lista-aficiones" style="display: none;">
+                                <!-- Aquí se generarán dinámicamente los checkboxes -->
+                            </div>
                         </div>
                         <button class="save" type="submit">Guardar</button>
                     </form>

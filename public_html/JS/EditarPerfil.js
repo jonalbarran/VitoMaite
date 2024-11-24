@@ -5,6 +5,7 @@ let imagenBase64Seleccionada = null; // Variable global para almacenar la imagen
 const mailUsuario = obtenerIdUsuario();
 mostrarCiudadActual(mailUsuario);
 
+
 function inicializarEditarPerfil() {
     const fotoInput = document.getElementById('foto');
     if (!fotoInput) {
@@ -26,9 +27,36 @@ function inicializarEditarPerfil() {
         cargarImagenDesdeIndexedDB();
     }
 
+    document.getElementById("ver-aficiones").addEventListener("click", function (event) {
+        event.preventDefault(); // Evita el comportamiento predeterminado del botón
+        mostrarAficiones(); // Llama a la función para mostrar aficiones
+    });
+
+
     // Configurar evento de clic en el botón de guardar
     const botonGuardar = document.querySelector('.save');
     botonGuardar.addEventListener('click', guardarPerfil);
+}
+
+// IndexedDB: Inicializar la base de datos
+function inicializarIndexedDB() {
+    const request = indexedDB.open("VitoMaite05", 1); // Nombre de la base de datos
+
+    request.onupgradeneeded = function (event) {
+        const db = event.target.result;
+        if (!db.objectStoreNames.contains("Usuarios")) {
+            db.createObjectStore("Usuarios", {keyPath: "mail"}); // Suponiendo que 'mail' es la clave primaria
+            console.log("ObjectStore 'Usuarios' creado.");
+        }
+    };
+
+    request.onerror = function (event) {
+        console.error("Error al abrir la base de datos:", event.target.errorCode);
+    };
+
+    request.onsuccess = function (event) {
+        console.log("Base de datos inicializada correctamente.");
+    };
 }
 
 function manejarCambioDeFoto(event) {
@@ -87,6 +115,46 @@ function cargarImagenDesdeSessionStorage(imagen) {
     }
 }
 
+// Cargar la imagen desde IndexedDB
+function cargarImagenDesdeIndexedDB() {
+    const mailUsuario = obtenerIdUsuario(); // Usamos el correo electrónico del usuario
+
+    const request = indexedDB.open("VitoMaite05", 1);
+
+    request.onsuccess = function (event) {
+        const db = event.target.result;
+        const transaction = db.transaction("Usuarios", "readonly");
+        const store = transaction.objectStore("Usuarios");
+
+        const getRequest = store.get(mailUsuario); // Obtenemos el usuario por su correo electrónico
+
+        getRequest.onsuccess = function (event) {
+            const resultado = event.target.result;
+            const fotoUsuarioElement = document.getElementById("fotoUsuarioEP");
+            if (resultado && resultado.imagen) {
+                // Si encontramos la imagen, la mostramos
+                if (fotoUsuarioElement) {
+                    fotoUsuarioElement.src = resultado.imagen;
+                    console.log("Imagen cargada desde IndexedDB.");
+                }
+            } else {
+                // Si no encontramos imagen, cargamos una por defecto
+                if (fotoUsuarioElement) {
+                    fotoUsuarioElement.src = 'IMG/default-photo.png'; // Imagen por defecto
+                    console.log("Imagen no encontrada, cargada imagen por defecto.");
+                }
+            }
+        };
+
+        getRequest.onerror = function (event) {
+            console.error("Error al cargar la imagen desde IndexedDB:", event.target.errorCode);
+        };
+    };
+
+    request.onerror = function (event) {
+        console.error("Error al abrir la base de datos para cargar la imagen:", event.target.errorCode);
+    };
+}
 
 // Función de guardar imagen (cuando el usuario hace clic en "Guardar")
 function guardarImagen(event) {
@@ -111,27 +179,6 @@ function guardarImagen(event) {
     }
 }
 
-// IndexedDB: Inicializar la base de datos
-function inicializarIndexedDB() {
-    const request = indexedDB.open("VitoMaite05", 1); // Nombre de la base de datos
-
-    request.onupgradeneeded = function (event) {
-        const db = event.target.result;
-        if (!db.objectStoreNames.contains("Usuarios")) {
-            db.createObjectStore("Usuarios", {keyPath: "mail"}); // Suponiendo que 'mail' es la clave primaria
-            console.log("ObjectStore 'Usuarios' creado.");
-        }
-    };
-
-    request.onerror = function (event) {
-        console.error("Error al abrir la base de datos:", event.target.errorCode);
-    };
-
-    request.onsuccess = function (event) {
-        console.log("Base de datos inicializada correctamente.");
-    };
-}
-
 // Función para guardar tanto la imagen como la ciudad en IndexedDB
 function guardarPerfil(event) {
     event.preventDefault(); // Prevenir el envío del formulario
@@ -151,6 +198,7 @@ function guardarPerfil(event) {
     if (ciudad) {
         actualizarCiudadEnIndexedDB(ciudad);
     }
+    guardarAficiones(); // Guardar las aficiones seleccionadas
 
     alert("Perfil actualizado correctamente.");
 }
@@ -241,47 +289,6 @@ function actualizarCiudadEnIndexedDB(ciudad) {
     };
 }
 
-// Cargar la imagen desde IndexedDB
-function cargarImagenDesdeIndexedDB() {
-    const mailUsuario = obtenerIdUsuario(); // Usamos el correo electrónico del usuario
-
-    const request = indexedDB.open("VitoMaite05", 1);
-
-    request.onsuccess = function (event) {
-        const db = event.target.result;
-        const transaction = db.transaction("Usuarios", "readonly");
-        const store = transaction.objectStore("Usuarios");
-
-        const getRequest = store.get(mailUsuario); // Obtenemos el usuario por su correo electrónico
-
-        getRequest.onsuccess = function (event) {
-            const resultado = event.target.result;
-            const fotoUsuarioElement = document.getElementById("fotoUsuarioEP");
-            if (resultado && resultado.imagen) {
-                // Si encontramos la imagen, la mostramos
-                if (fotoUsuarioElement) {
-                    fotoUsuarioElement.src = resultado.imagen;
-                    console.log("Imagen cargada desde IndexedDB.");
-                }
-            } else {
-                // Si no encontramos imagen, cargamos una por defecto
-                if (fotoUsuarioElement) {
-                    fotoUsuarioElement.src = 'IMG/default-photo.png'; // Imagen por defecto
-                    console.log("Imagen no encontrada, cargada imagen por defecto.");
-                }
-            }
-        };
-
-        getRequest.onerror = function (event) {
-            console.error("Error al cargar la imagen desde IndexedDB:", event.target.errorCode);
-        };
-    };
-
-    request.onerror = function (event) {
-        console.error("Error al abrir la base de datos para cargar la imagen:", event.target.errorCode);
-    };
-}
-
 // Función para obtener el correo electrónico del usuario
 function obtenerIdUsuario() {
     return sessionStorage.getItem("mail");
@@ -322,5 +329,130 @@ function mostrarCiudadActual(mailUsuario) {
 
     request.onerror = function (event) {
         console.error("Error al abrir la base de datos:", event.target.errorCode);
+    };
+}
+
+
+// EDITAR AFICIONES------------------------------------------------------------------------
+
+
+// Función para mostrar las aficiones disponibles con las del usuario preseleccionadas
+function mostrarAficiones() {
+    const mailUsuario = obtenerIdUsuario();
+    const request = indexedDB.open("VitoMaite05", 1);
+
+    request.onsuccess = function (event) {
+        const db = event.target.result;
+
+        // Obtener todas las aficiones
+        const aficionesTransaction = db.transaction("Aficiones", "readonly");
+        const aficionesStore = aficionesTransaction.objectStore("Aficiones");
+        const aficionesRequest = aficionesStore.getAll();
+
+        // Obtener las aficiones del usuario
+        const aficionUsuarioTransaction = db.transaction("AficionUsuario", "readonly");
+        const aficionUsuarioStore = aficionUsuarioTransaction.objectStore("AficionUsuario");
+        const userAficionesRequest = aficionUsuarioStore.getAll();
+
+        aficionesRequest.onsuccess = function () {
+            const aficiones = aficionesRequest.result; // Todas las aficiones disponibles
+
+            userAficionesRequest.onsuccess = function () {
+                // Obtener solo las aficiones del usuario
+                const userAficionIds = userAficionesRequest.result
+                    .filter(item => item.mail === mailUsuario) // Filtrar por usuario
+                    .map(item => item.aficionId); // Solo obtenemos los aficionId
+
+                // Crear lista de checkboxes
+                const listaDiv = document.getElementById("lista-aficiones");
+                listaDiv.innerHTML = ""; // Limpiar contenido previo
+
+                aficiones.forEach(aficion => {
+                    const checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.value = aficion.id; // Asignar el id de la afición
+                    checkbox.checked = userAficionIds.includes(aficion.id); // Preseleccionar si el usuario ya la tiene
+
+                    const label = document.createElement("label");
+                    label.textContent = aficion.aficion;
+
+                    const div = document.createElement("div");
+                    div.appendChild(checkbox);
+                    div.appendChild(label);
+
+                    listaDiv.appendChild(div);
+                });
+
+                listaDiv.style.display = "block"; // Mostrar la lista
+            };
+
+            userAficionesRequest.onerror = function () {
+                console.error("Error al obtener las aficiones del usuario.");
+            };
+        };
+
+        aficionesRequest.onerror = function () {
+            console.error("Error al obtener las aficiones disponibles.");
+        };
+    };
+
+    request.onerror = function () {
+        console.error("Error al abrir la base de datos.");
+    };
+}
+
+
+// Función para guardar o eliminar aficiones del usuario
+function guardarAficiones() {
+    const mailUsuario = obtenerIdUsuario();
+    const listaDiv = document.getElementById("lista-aficiones");
+    const checkboxes = listaDiv.getElementsByTagName("input");
+
+    const request = indexedDB.open("VitoMaite05", 1);
+
+    request.onsuccess = function (event) {
+        const db = event.target.result;
+
+        // Obtener todas las aficiones del usuario
+        const aficionUsuarioTransaction = db.transaction("AficionUsuario", "readwrite");
+        const aficionUsuarioStore = aficionUsuarioTransaction.objectStore("AficionUsuario");
+        
+        // Obtener las aficiones del usuario actual
+        const userAficionesRequest = aficionUsuarioStore.getAll();
+        userAficionesRequest.onsuccess = function () {
+            const userAficiones = userAficionesRequest.result.filter(item => item.mail === mailUsuario);
+            const userAficionIds = userAficiones.map(item => item.aficionId);
+
+            // Creamos un array de los aficionId seleccionados
+            const aficionesSeleccionadas = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => parseInt(checkbox.value));
+
+            // 1. Eliminar aficiones desmarcadas
+            userAficiones.forEach(function (aficionUsuario) {
+                if (!aficionesSeleccionadas.includes(aficionUsuario.aficionId)) {
+                    aficionUsuarioStore.delete(aficionUsuario.id); // Eliminar la relación si la afición no está seleccionada
+                }
+            });
+
+            // 2. Insertar aficiones nuevas
+            aficionesSeleccionadas.forEach(function (aficionId) {
+                // Solo insertar si no existe ya la relación
+                if (!userAficionIds.includes(aficionId)) {
+                    aficionUsuarioStore.add({ mail: mailUsuario, aficionId: aficionId });
+                }
+            });
+
+            // Confirmación y limpieza
+            console.log("Aficiones guardadas correctamente.");
+        };
+
+        userAficionesRequest.onerror = function () {
+            console.error("Error al obtener las aficiones del usuario.");
+        };
+    };
+
+    request.onerror = function () {
+        console.error("Error al abrir la base de datos.");
     };
 }
