@@ -1,5 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
-
+    const nombre = sessionStorage.getItem("nombre");
+        const apellido = sessionStorage.getItem("apellido");
+        const imagen = sessionStorage.getItem("imagen");
+        mensajeBienvenida(nombre, apellido);
+        actualizarFotoUsuario(imagen);
+        botonCerrarSesion();
+    
     // Escuchar el evento de envío del formulario
     const form = document.getElementById('form-buscar');
     form.addEventListener('submit', function (e) {
@@ -36,6 +42,28 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+function mensajeBienvenida(nombre, apellido) {
+    const mensajeBienvenida = document.getElementById("mensajeBienvenida");
+    mensajeBienvenida.textContent = `Bienvenid@, ${nombre} ${apellido}`;
+}
+
+function actualizarFotoUsuario(imagen) {
+    const fotoUsuario = document.getElementById("fotoUsuario");
+    if (imagen) {
+        fotoUsuario.src = imagen;
+    } else {
+        fotoUsuario.src = "IMG/default-user.png";
+    }
+}
+function botonCerrarSesion() {
+
+    const cerrarSesionBtn = document.getElementById("cerrarSesionBtn");
+    cerrarSesionBtn.addEventListener("click", () => {
+        window.location.href = "index.html";
+        sessionStorage.clear();
+        alert("Sesión cerrada correctamente.");
+    });
+}
 function buscarUsuarios(genero, edadMin, edadMax, ciudad) {
     const request = indexedDB.open("VitoMaite05", 1);
 
