@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", inicializarEditarPerfil);
 
+let imagenBase64Seleccionada = null; // Variable global para almacenar la imagen seleccionada
+
 function inicializarEditarPerfil() {
     const fotoInput = document.getElementById('foto');
     if (!fotoInput) {
@@ -10,7 +12,7 @@ function inicializarEditarPerfil() {
     // Inicializamos la base de datos al cargar la página
     inicializarIndexedDB();
 
-    // Configurar evento de cambio
+    // Configurar evento de cambio solo para actualizar la vista previa
     fotoInput.addEventListener('change', manejarCambioDeFoto);
 
     // Cargar la imagen al iniciar, si está en sessionStorage o IndexedDB
@@ -20,6 +22,10 @@ function inicializarEditarPerfil() {
     } else {
         cargarImagenDesdeIndexedDB();
     }
+
+    // Configurar evento de clic en el botón de guardar
+    const botonGuardar = document.querySelector('.save');
+    botonGuardar.addEventListener('click', guardarImagen);
 }
 
 function manejarCambioDeFoto(event) {
@@ -39,10 +45,20 @@ function manejarCambioDeFoto(event) {
             console.error("No se pudo convertir el archivo a Base64.");
             return;
         }
-        sessionStorage.setItem('imagen', base64); // Guardar en sessionStorage
-        guardarImagenEnIndexedDB(base64); // Guardar en IndexedDB
-        cargarImagenDesdeSessionStorage(base64); // Cargar directamente
+
+        // Solo actualizamos la vista previa, pero no guardamos en sessionStorage ni IndexedDB aún
+        imagenBase64Seleccionada = base64;
+        cargarImagenDesdeBase64(base64);
     });
+}
+
+function cargarImagenDesdeBase64(imagenBase64) {
+    const fotoUsuarioElement = document.getElementById("fotoUsuarioEP");
+    if (fotoUsuarioElement) {
+        fotoUsuarioElement.src = imagenBase64; // Actualizamos la vista previa con la imagen seleccionada
+    } else {
+        console.error("El elemento con ID 'fotoUsuarioEP' no existe.");
+    }
 }
 
 function convertirArchivoABase64(file, callback) {
@@ -68,15 +84,37 @@ function cargarImagenDesdeSessionStorage(imagen) {
     }
 }
 
+
+// Función de guardar imagen (cuando el usuario hace clic en "Guardar")
+function guardarImagen(event) {
+    event.preventDefault(); // Prevenir el envío del formulario
+
+    if (!imagenBase64Seleccionada) {
+        console.error("No se ha seleccionado una imagen.");
+        alert("Por favor, selecciona una imagen antes de guardar.");
+        return;
+    }
+
+    // Guardar la imagen en sessionStorage
+    sessionStorage.setItem('imagen', imagenBase64Seleccionada);
+
+    // Guardar la imagen en IndexedDB
+    guardarImagenEnIndexedDB(imagenBase64Seleccionada);
+
+    // Actualizar la imagen en la vista
+    cargarImagenDesdeBase64(imagenBase64Seleccionada);
+    alert("Foto de perfil guardada correctamente.");
+}
+
 // IndexedDB: Inicializar la base de datos
 function inicializarIndexedDB() {
     const request = indexedDB.open("VitoMaite05", 1); // Nombre de la base de datos
 
     request.onupgradeneeded = function (event) {
         const db = event.target.result;
-        if (!db.objectStoreNames.contains("Usuario")) {
-            db.createObjectStore("Usuario", { keyPath: "email" }); // Suponiendo que 'email' es la clave primaria
-            console.log("ObjectStore 'Usuario' creado.");
+        if (!db.objectStoreNames.contains("Usuarios")) {
+            db.createObjectStore("Usuarios", { keyPath: "mail" }); // Suponiendo que 'mail' es la clave primaria
+            console.log("ObjectStore 'Usuarios' creado.");
         }
     };
 
@@ -91,18 +129,29 @@ function inicializarIndexedDB() {
 
 // Guardar la imagen en IndexedDB
 function guardarImagenEnIndexedDB(imagenBase64) {
-    const emailUsuario = obtenerIdUsuario(); // Usamos el correo electrónico del usuario
+    const mailUsuario = obtenerIdUsuario(); // Usamos el correo electrónico del usuario
 
     const request = indexedDB.open("VitoMaite05", 1);
 
+    request.onupgradeneeded = function (event) {
+        const db = event.target.result;
+
+        if (!db.objectStoreNames.contains("Usuarios")) {
+            const objectStore = db.createObjectStore("Usuarios", { keyPath: "mail" }); // 'mail' será la clave primaria
+            objectStore.createIndex("imagen", "imagen", { unique: false }); // Creando un índice para imagen si es necesario
+        }
+    };
+
     request.onsuccess = function (event) {
         const db = event.target.result;
-        const transaction = db.transaction("Usuario", "readwrite");
-        const store = transaction.objectStore("Usuario");
 
-        // Asumiendo que solo guardamos una foto por usuario, actualizamos la foto del usuario específico
+        // Iniciamos una transacción de lectura y escritura
+        const transaction = db.transaction("Usuarios", "readwrite");
+        const store = transaction.objectStore("Usuarios");
+
+        // Creamos el objeto que vamos a guardar o actualizar
         const imagenObjeto = {
-            email: emailUsuario, // Usamos el email como identificador único
+            mail: mailUsuario,
             imagen: imagenBase64
         };
 
@@ -124,27 +173,32 @@ function guardarImagenEnIndexedDB(imagenBase64) {
 
 // Cargar la imagen desde IndexedDB
 function cargarImagenDesdeIndexedDB() {
-    const emailUsuario = obtenerIdUsuario(); // Usamos el correo electrónico del usuario
+    const mailUsuario = obtenerIdUsuario(); // Usamos el correo electrónico del usuario
 
     const request = indexedDB.open("VitoMaite05", 1);
 
     request.onsuccess = function (event) {
         const db = event.target.result;
-        const transaction = db.transaction("Usuario", "readonly");
-        const store = transaction.objectStore("Usuario");
+        const transaction = db.transaction("Usuarios", "readonly");
+        const store = transaction.objectStore("Usuarios");
 
-        const getRequest = store.get(emailUsuario); // Obtenemos el usuario por su correo electrónico
+        const getRequest = store.get(mailUsuario); // Obtenemos el usuario por su correo electrónico
 
         getRequest.onsuccess = function (event) {
             const resultado = event.target.result;
+            const fotoUsuarioElement = document.getElementById("fotoUsuarioEP");
             if (resultado && resultado.imagen) {
-                const fotoUsuarioElement = document.getElementById("fotoUsuarioEP");
+                // Si encontramos la imagen, la mostramos
                 if (fotoUsuarioElement) {
                     fotoUsuarioElement.src = resultado.imagen;
                     console.log("Imagen cargada desde IndexedDB.");
                 }
             } else {
-                console.log("No se encontró ninguna imagen para este usuario en IndexedDB.");
+                // Si no encontramos imagen, cargamos una por defecto
+                if (fotoUsuarioElement) {
+                    fotoUsuarioElement.src = 'IMG/default-photo.png'; // Imagen por defecto
+                    console.log("Imagen no encontrada, cargada imagen por defecto.");
+                }
             }
         };
 
@@ -160,9 +214,5 @@ function cargarImagenDesdeIndexedDB() {
 
 // Función para obtener el correo electrónico del usuario
 function obtenerIdUsuario() {
-    // En un escenario real, debes obtener el correo electrónico del usuario autenticado de alguna manera.
-    // Ejemplo: Podrías guardarlo en el sessionStorage o en una cookie cuando el usuario inicia sesión.
-    // En este caso, vamos a devolver un correo simulado:
-
-    return sessionStorage.getItem("emailUsuario") || "usuario@example.com"; // Aquí debes obtener el correo real.
+    return sessionStorage.getItem("mail"); 
 }

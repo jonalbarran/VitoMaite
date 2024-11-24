@@ -19,7 +19,7 @@ const fotoUsuario = document.getElementById("fotoUsuario");
         if (imagen) {
 fotoUsuario.src = imagen;
 } else {
-fotoUsuario.src = "IMG/default-user.png";
+fotoUsuario.src = "IMG/default-photo.png";
 }
 }
 
