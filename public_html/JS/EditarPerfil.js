@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", inicializarEditarPerfil);
 
 let imagenBase64Seleccionada = null; // Variable global para almacenar la imagen seleccionada
+// Llamar a esta función cuando se carga la página (o cuando el usuario haya iniciado sesión)
+const mailUsuario = obtenerIdUsuario();
+mostrarCiudadActual(mailUsuario);
 
 function inicializarEditarPerfil() {
     const fotoInput = document.getElementById('foto');
@@ -25,7 +28,7 @@ function inicializarEditarPerfil() {
 
     // Configurar evento de clic en el botón de guardar
     const botonGuardar = document.querySelector('.save');
-    botonGuardar.addEventListener('click', guardarImagen);
+    botonGuardar.addEventListener('click', guardarPerfil);
 }
 
 function manejarCambioDeFoto(event) {
@@ -89,21 +92,23 @@ function cargarImagenDesdeSessionStorage(imagen) {
 function guardarImagen(event) {
     event.preventDefault(); // Prevenir el envío del formulario
 
-    if (!imagenBase64Seleccionada) {
-        console.error("No se ha seleccionado una imagen.");
-        alert("Por favor, selecciona una imagen antes de guardar.");
-        return;
+    // Primero, revisamos si se ha seleccionado una nueva imagen
+    if (imagenBase64Seleccionada) {
+        // Si se ha seleccionado una imagen, guardamos la nueva imagen
+
+        // Guardar la imagen en sessionStorage
+        sessionStorage.setItem('imagen', imagenBase64Seleccionada);
+
+        // Guardar la imagen en IndexedDB
+        guardarImagenEnIndexedDB(imagenBase64Seleccionada);
+
+        // Actualizar la imagen en la vista
+        cargarImagenDesdeBase64(imagenBase64Seleccionada);
+        alert("Foto de perfil guardada correctamente.");
+    } else {
+        // Si no hay imagen seleccionada, solo se actualiza la ciudad, sin tocar la foto
+        alert("Solo se ha guardado el cambio de ciudad.");
     }
-
-    // Guardar la imagen en sessionStorage
-    sessionStorage.setItem('imagen', imagenBase64Seleccionada);
-
-    // Guardar la imagen en IndexedDB
-    guardarImagenEnIndexedDB(imagenBase64Seleccionada);
-
-    // Actualizar la imagen en la vista
-    cargarImagenDesdeBase64(imagenBase64Seleccionada);
-    alert("Foto de perfil guardada correctamente.");
 }
 
 // IndexedDB: Inicializar la base de datos
@@ -113,7 +118,7 @@ function inicializarIndexedDB() {
     request.onupgradeneeded = function (event) {
         const db = event.target.result;
         if (!db.objectStoreNames.contains("Usuarios")) {
-            db.createObjectStore("Usuarios", { keyPath: "mail" }); // Suponiendo que 'mail' es la clave primaria
+            db.createObjectStore("Usuarios", {keyPath: "mail"}); // Suponiendo que 'mail' es la clave primaria
             console.log("ObjectStore 'Usuarios' creado.");
         }
     };
@@ -127,22 +132,34 @@ function inicializarIndexedDB() {
     };
 }
 
+// Función para guardar tanto la imagen como la ciudad en IndexedDB
+function guardarPerfil(event) {
+    event.preventDefault(); // Prevenir el envío del formulario
+
+    const ciudad = document.getElementById("ciudad").value;
+    const mailUsuario = obtenerIdUsuario();
+
+    // Si se ha seleccionado una nueva foto
+    if (imagenBase64Seleccionada) {
+        // Guardar la imagen en sessionStorage
+        sessionStorage.setItem('imagen', imagenBase64Seleccionada);
+        // Guardar la imagen en IndexedDB
+        guardarImagenEnIndexedDB(imagenBase64Seleccionada);
+    }
+
+    // Si la ciudad ha cambiado, actualizarla en IndexedDB
+    if (ciudad) {
+        actualizarCiudadEnIndexedDB(ciudad);
+    }
+
+    alert("Perfil actualizado correctamente.");
+}
+
 // Guardar la imagen en IndexedDB
 function guardarImagenEnIndexedDB(imagenBase64) {
     const mailUsuario = obtenerIdUsuario(); // Usamos el correo electrónico del usuario para obtener el ID
 
     const request = indexedDB.open("VitoMaite05", 1);
-
-    // En caso de que la base de datos sea creada o actualizada
-    request.onupgradeneeded = function (event) {
-        const db = event.target.result;
-
-        // Si la base de datos se está creando o actualizando, definimos el object store 'Usuarios'
-        if (!db.objectStoreNames.contains("Usuarios")) {
-            const objectStore = db.createObjectStore("Usuarios", { keyPath: "ID", autoIncrement: true }); // 'ID' será la clave primaria
-            objectStore.createIndex("mail", "mail", { unique: true }); // También podemos crear un índice para 'mail' si lo necesitamos
-        }
-    };
 
     request.onsuccess = function (event) {
         const db = event.target.result;
@@ -187,6 +204,42 @@ function guardarImagenEnIndexedDB(imagenBase64) {
     };
 }
 
+// Función para actualizar la ciudad en IndexedDB
+function actualizarCiudadEnIndexedDB(ciudad) {
+    const mailUsuario = obtenerIdUsuario(); // Usamos el correo electrónico del usuario para obtener el ID
+
+    const request = indexedDB.open("VitoMaite05", 1);
+
+    request.onsuccess = function (event) {
+        const db = event.target.result;
+        const transaction = db.transaction("Usuarios", "readwrite");
+        const store = transaction.objectStore("Usuarios");
+
+        // Primero, necesitamos obtener el ID del usuario a partir del mail
+        const index = store.index("mail"); // Creamos un índice para buscar por mail
+        const getByMailRequest = index.get(mailUsuario); // Usamos 'mailUsuario' para obtener el 'ID' del usuario
+        const getRequest = store.get(mailUsuario);
+
+        getByMailRequest.onsuccess = function () {
+            const usuario = getByMailRequest.result;
+
+            if (usuario) {
+                usuario.ciudad = ciudad; // Actualizamos la ciudad
+                store.put(usuario);
+                console.log("Ciudad actualizada correctamente en IndexedDB.");
+            } else {
+                console.log("Usuario no encontrado.");
+            }
+        };
+
+        getByMailRequest.onerror = function (event) {
+            console.error("Error al obtener el usuario por mail:", event.target.errorCode);
+        };
+    };
+    request.onerror = function (event) {
+        console.error("Error al abrir la base de datos para guardar la imagen:", event.target.errorCode);
+    };
+}
 
 // Cargar la imagen desde IndexedDB
 function cargarImagenDesdeIndexedDB() {
@@ -231,5 +284,43 @@ function cargarImagenDesdeIndexedDB() {
 
 // Función para obtener el correo electrónico del usuario
 function obtenerIdUsuario() {
-    return sessionStorage.getItem("mail"); 
+    return sessionStorage.getItem("mail");
+}
+
+// Función para obtener la ciudad actual del usuario desde IndexedDB
+function mostrarCiudadActual(mailUsuario) {
+    const request = indexedDB.open("VitoMaite05", 1);
+
+    request.onsuccess = function (event) {
+        const db = event.target.result;
+        const transaction = db.transaction("Usuarios", "readonly");
+        const store = transaction.objectStore("Usuarios");
+
+        // Usamos el índice para buscar al usuario por su correo
+        const index = store.index("mail");
+        const getRequest = index.get(mailUsuario);
+
+        getRequest.onsuccess = function () {
+            const usuario = getRequest.result;
+
+            if (usuario) {
+                // Mostrar la ciudad actual en el HTML
+                const ciudadActual = usuario.ciudad || "No especificada"; // Si no tiene ciudad, mostrar "No especificada"
+                document.getElementById("ciudad-actual").textContent = ciudadActual;
+
+                // Establecer la ciudad actual en el desplegable
+                document.getElementById("ciudad").value = ciudadActual; // Preselecciona la ciudad en el desplegable
+            } else {
+                console.log("Usuario no encontrado.");
+            }
+        };
+
+        getRequest.onerror = function (event) {
+            console.error("Error al obtener el usuario:", event.target.errorCode);
+        };
+    };
+
+    request.onerror = function (event) {
+        console.error("Error al abrir la base de datos:", event.target.errorCode);
+    };
 }

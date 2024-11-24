@@ -24,7 +24,20 @@
                             <img id="fotoUsuarioEP" alt="Foto del usuario" src="IMG/default-photo.png">
                         </label>
                         <input type="file" id="foto" name="foto" accept="image/*" style="display: none;">
-                        <div id="nombreFoto"></div>
+                        <div id="nombreFoto">
+                            <p>FOTO</p>
+                        </div>
+                        <div id="ciudadActual">
+                            <p><strong>Ciudad actual: </strong><span id="ciudad-actual"></span></p>
+                        </div>
+                        <div id="select-ciudad">
+                            <label for="ciudad">Cambiar ciudad: </label>
+                            <select id="ciudad">
+                                <option value="Vitoria">Vitoria</option>
+                                <option value="Bilbao">Bilbao</option>
+                                <option value="Donosti">Donosti</option>
+                            </select>
+                        </div>
                         <button class="save" type="submit">Guardar</button>
                     </form>
                 </div>
