@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Escuchar el evento de envío del formulario
     const form = document.getElementById('form-buscar');
     form.addEventListener('submit', function (e) {
+        
         e.preventDefault(); // Evitar recargar la página
 
 
@@ -12,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const edadMin = parseInt(document.getElementById('edad-min').value, 10);
         const edadMax = parseInt(document.getElementById('edad-max').value, 10);
         const ciudad = document.getElementById('ciudad').value;
+        
 
         if (edadMin > edadMax) {
             document.getElementById('EtiquetaErrores').textContent = 'LA EDAD MÁXIMA TIENE QUE SER MAYOR QUE LA MÍNIMA';
