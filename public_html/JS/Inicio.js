@@ -47,7 +47,6 @@ function mostrarLikes() {
     var contenedorLikes = document.getElementById("contenedorLikes");
     contenedorLikes.innerHTML = "";
     request.onsuccess = function (evento) {
-        console.log("He llegado");
         var db = evento.target.result;
         var transaccion = db.transaction(["meGusta"], "readonly");
         var visitasStore = transaccion.objectStore("meGusta");
