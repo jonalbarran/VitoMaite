@@ -249,6 +249,22 @@ const aficiones = document.getElementById("aficiones");
         });
         
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function obtenerAficionesIDs(aficionesSeleccionadasArray) {
     return new Promise((resolve, reject) => {
         const request = indexedDB.open("VitoMaite05", 1);
@@ -301,6 +317,22 @@ function obtenerAficionesIDs(aficionesSeleccionadasArray) {
         };
     });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function obtenerMailsPorAficiones(db, aficionIds) {
 return new Promise((resolve, reject) => {
