@@ -42,10 +42,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+
 function mensajeBienvenida(nombre, apellido) {
     const mensajeBienvenida = document.getElementById("mensajeBienvenida");
     mensajeBienvenida.textContent = `Bienvenid@, ${nombre} ${apellido}`;
 }
+
 
 function actualizarFotoUsuario(imagen) {
     const fotoUsuario = document.getElementById("fotoUsuario");
@@ -55,6 +58,8 @@ function actualizarFotoUsuario(imagen) {
         fotoUsuario.src = "IMG/default-user.png";
     }
 }
+
+
 function botonCerrarSesion() {
 
     const cerrarSesionBtn = document.getElementById("cerrarSesionBtn");
@@ -64,6 +69,9 @@ function botonCerrarSesion() {
         alert("Sesión cerrada correctamente.");
     });
 }
+
+
+
 function buscarUsuarios(genero, edadMin, edadMax, ciudad) {
     const request = indexedDB.open("VitoMaite05", 1);
 
@@ -79,7 +87,7 @@ function buscarUsuarios(genero, edadMin, edadMax, ciudad) {
 
             if (cursor) {
                 const usuario = cursor.value;
-                console.log("Usuario encontrado:", usuario);
+                
 
                 // Log para cada variable antes de la comparación
                 console.log("Comparando con los siguientes valores:");
@@ -116,7 +124,7 @@ function buscarUsuarios(genero, edadMin, edadMax, ciudad) {
 }
 
 
-function mostrarResultados(resultados) {
+async function mostrarResultados(resultados) {
     const main = document.querySelector('main');
     borrarTabla(); // Llamamos a la función que limpia la tabla si ya existe
 
@@ -145,16 +153,15 @@ function mostrarResultados(resultados) {
     tabla.appendChild(encabezado);
 
     // Rellenamos la tabla con los datos
-    
-    
-    resultados.forEach(usuario => {
-        const aficiones = obtenerAficionesUsuario(usuario.mail);
+    for (const usuario of resultados) {
+        const aficiones = await obtenerAficionesUsuario(usuario.mail); // Esperar las aficiones
+
+        console.log(aficiones);
         const checkBoxes = comprobarCheckboxes();
 
         console.log(compararArrays(checkBoxes, aficiones));
         // Si alguna afición coincide con los checkbox seleccionados
         if (compararArrays(checkBoxes, aficiones)) {
-            
             const fila = document.createElement('tr');
             
             // Crear y agregar la imagen del usuario
@@ -169,7 +176,7 @@ function mostrarResultados(resultados) {
             `;
             tabla.appendChild(fila);
         }
-    });
+    }
 
     // Agregar un evento a todos los botones "Más detalles"
     tabla.addEventListener('click', function (e) {
@@ -183,6 +190,7 @@ function mostrarResultados(resultados) {
     // Finalmente, agregar la tabla al `main`
     main.appendChild(tabla);
 }
+
 
 
 function borrarTabla() {
@@ -205,50 +213,58 @@ function comprobarCheckboxes() {
         }
     });
 
-    console.log(marcados);
+    
     return marcados;
 }
 
 
 function obtenerAficionesUsuario(mail) {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open("VitoMaite05", 1);
 
-    const request = indexedDB.open("VitoMaite05", 1);
+        request.onsuccess = function (event) {
+            const db = event.target.result;
+            const transaction = db.transaction("AficionUsuario", "readonly");
+            const store = transaction.objectStore("AficionUsuario");
 
-    request.onsuccess = function (event) {
-        const db = event.target.result;
-        const transaction = db.transaction("AficionUsuario", "readonly");
-        const store = transaction.objectStore("AficionUsuario");
+            const aficionesUsuario = []; // Aquí almacenaremos las aficiones del usuario
 
-        const aficionesUsuario = []; // Aquí almacenaremos las aficiones del usuario
+            store.openCursor().onsuccess = function (event) {
+                const cursor = event.target.result;
 
-        store.openCursor().onsuccess = function (event) {
-            const cursor = event.target.result;
-
-            if (cursor) {
-                const usuario = cursor.value;
-                if (usuario.mail === mail) {
-                    aficionesUsuario.push(usuario.aficionId);
+                if (cursor) {
+                    const usuario = cursor.value;
+                    if (usuario.mail === mail) {
+                        aficionesUsuario.push(usuario.aficionId);
+                    }
+                    cursor.continue();
+                } else {
+                    resolve(aficionesUsuario); // Resolvemos la promesa con las aficiones encontradas
                 }
-                 cursor.continue();
-            }
-             else {
-                aficionesUsuario.sort((a, b) => a.edad - b.edad);
-                // Mostrar los resultados una vez completada la búsqueda
-                console.log(aficionesUsuario);
-                return aficionesUsuario;
-            }
+            };
 
+            store.openCursor().onerror = function () {
+                reject("Error al leer el cursor");
+            };
         };
-    };
 
-    request.onerror = function () {
-        console.error("Error al acceder a la base de datos.");
-    };
+        request.onerror = function () {
+            reject("Error al abrir la base de datos");
+        };
+    });
 }
+
+
+
+
+
+
+
 
 function compararArrays(array1, array2) {
     // Usamos un Set para optimizar la búsqueda de elementos comunes
     
+    console.log("Comparando:", array1, "con", array2);
     if (array1 === null || array1.length === 0) {
     //array nulo, no tiene en cuenta las aficiones porque no hay ninguna marcada
     return true;
@@ -256,15 +272,15 @@ function compararArrays(array1, array2) {
     
     // Comprobamos si algún elemento de array1 está en array2
     for (let i = 0; i < array1.length; i++) {
-        
-        console.log("1");
-        if (array1[i]===array1[i]) {
-            console.log("2");
+        for (let j = 0; j < array2.length; j++) {
+             console.log("Comparando:", array1[i], "y", array2[j]);
+        if (array1[i] === array2[j]) {
+            console.log(" encontrado:", array1[i]);
             
             return true;
         }
     }
-        console.log("3");
+}
     
     }
     return false; 
