@@ -436,5 +436,64 @@ img[alt="flechaAtras"] {
 #cerrarSesionBtn:hover {
     background-color: #333; /* Color de fondo más oscuro al pasar el ratón */
 }
+/* Contenedor principal */
+#container-listas {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+}
 
+/* Contenedor de las dos listas */
+#listas {
+    display: flex;
+    gap: 20px;
+}
 
+/* Estilo para la lista original (zona de selección) */
+#lista-original {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#aficiones {
+    width: 150px;  /* Ancho ajustado para que sea más compacto */
+    height: 40px;  /* Altura ajustada para que se lea mejor */
+    margin-top: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;  /* Ajuste del tamaño de fuente para caber mejor */
+}
+
+/* Estilo para la lista seleccionada (sin cambios) */
+#lista-seleccionada {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#aficionesSeleccionadas {
+    width: 150px;
+    height: 150px; /* Mantiene la altura para que las opciones seleccionadas se vean cómodamente */
+    margin-top: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Botón para mover las opciones */
+#btn-mover-aficion {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #004080;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#btn-mover-aficion:hover {
+    background-color: #002d57;
+}

@@ -164,12 +164,63 @@ function abrirBaseDeDatos() {
             usuariosStore.createIndex("latitud", "latitud", {unique: false});
             usuariosStore.createIndex("longitud", "longitud", {unique: false});
         }
+        
+        if (!db.objectStoreNames.contains("AficionUsuario")) {
+        var aficionUsuarioStore = db.createObjectStore("AficionUsuario", {keyPath: "id", autoIncrement: true});
+        aficionUsuarioStore.createIndex("mail", "mail", {unique: false});
+        aficionUsuarioStore.createIndex("aficionId", "aficionId", {unique: false});
+    }
+    
+       
+
+        var usuariosAficiones = [
+            {mail: "laura.sanchez@example.com", aficionId: 1}, // Afición 1
+            {mail: "laura.sanchez@example.com", aficionId: 2}, // Afición 2
+            {mail: "aitzol.gomez@example.com", aficionId: 3},
+            {mail: "aitzol.gomez@example.com", aficionId: 4},
+            {mail: "alazne.ortiz@example.com", aficionId: 5},
+            {mail: "alazne.ortiz@example.com", aficionId: 6},
+            {mail: "andres.sanchez@example.com", aficionId: 7},
+            {mail: "andres.sanchez@example.com", aficionId: 8},
+            {mail: "ane.uribe@example.com", aficionId: 9},
+            {mail: "ane.uribe@example.com", aficionId: 10},
+            {mail: "borja.martinez@example.com", aficionId: 11},
+            {mail: "borja.martinez@example.com", aficionId: 12},
+            {mail: "carla.perez@example.com", aficionId: 13},
+            {mail: "carla.perez@example.com", aficionId: 14},
+            {mail: "carlos.garcia@example.com", aficionId: 15},
+            {mail: "daniel.lopez@example.com", aficionId: 1},
+            {mail: "daniel.lopez@example.com", aficionId: 2},
+            {mail: "david.martin@example.com", aficionId: 3},
+            {mail: "david.martin@example.com", aficionId: 4},
+            {mail: "estibaliz.garcia@example.com", aficionId: 5},
+            {mail: "estibaliz.garcia@example.com", aficionId: 6},
+            {mail: "juan.perez@example.com", aficionId: 7},
+            {mail: "juan.perez@example.com", aficionId: 8},
+            {mail: "omar.lopez@example.com", aficionId: 9},
+            {mail: "omar.lopez@example.com", aficionId: 10},
+            {mail: "pedro.gomez@example.com", aficionId: 11}
+        ];
+
+        usuariosAficiones.forEach(function (aficionUsuario) {
+            aficionUsuarioStore.add(aficionUsuario);
+        });
 
         // Crear el objectStore de "Aficiones" solo si no existe
         if (!db.objectStoreNames.contains("Aficiones")) {
             var aficionesStore = db.createObjectStore("Aficiones", {keyPath: "id", autoIncrement: true});
             aficionesStore.createIndex("aficion", "aficion", {unique: false});
         }
+        // Aficiones de ejemplo
+        var aficiones = [
+            "Leer", "Bailar", "Pintar", "Escribir", "Nadar", "Viajar", "Mus", "Correr", "Cocinar",
+            "Senderismo", "Música", "Cantar", "Yoga", "Fotografía", "Videojuegos"
+        ];
+
+        aficiones.forEach(function (aficion) {
+            aficionesStore.add({aficion: aficion});
+        });
+
 
         // Crear el objectStore de "meGusta" solo si no existe
         if (!db.objectStoreNames.contains("meGusta")) {
@@ -430,20 +481,10 @@ function agregarDatos(db) {
     usuarios.forEach(function (usuario) {
         usuariosStore.add(usuario);
     });
+    
+    
+        
+    }
+    
 
-    // Aficiones de ejemplo
-    var aficiones = [
-        "Leer", "Bailar", "Pintar", "Escribir", "Nadar", "Viajar", "Mus", "Correr", "Cocinar",
-        "Senderismo", "Música", "Cantar", "Yoga", "Fotografía", "Videojuegos"
-    ];
-
-    aficiones.forEach(function (aficion) {
-        aficionesStore.add({aficion: aficion});
-    });
-
-    // Me gusta de ejemplo
-
-
-
-}
     
