@@ -106,7 +106,7 @@ function buscarUsuarios(genero, edadMin, edadMax, ciudad, mail) {
                         (usuario.edad >= edadMin) &&
                         (usuario.edad <= edadMax) &&
                         (usuario.genero === genero) &&
-                        (usuario.mail =! mail)
+                        (usuario.mail !== mail)
                         ) {
                     resultados.push(usuario);
 
@@ -174,7 +174,7 @@ async function mostrarResultados(resultados) {
             const fotoUsuario = document.createElement("img");
             fotoUsuario.src = "img/" + usuario.foto;
 
-
+                
             const btnLike = document.createElement("button");
             btnLike.classList.add("btn-like");
             btnLike.dataset.mail = usuario.mail; // Guardar el mail como dataset
