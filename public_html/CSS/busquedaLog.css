@@ -16,6 +16,10 @@ body {
     width: 0;
 }
 
+.tabla-usuarios {
+    margin-bottom: 1000px; /* Espacio debajo de la tabla */
+}
+
 
 /* ------ HEADER SECTION ------ */
 
@@ -62,7 +66,7 @@ header {
 
 
 main {
-    height: 100vh;
+    height: 250vh;
 }
 
 h1 {

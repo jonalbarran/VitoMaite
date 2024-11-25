@@ -142,6 +142,46 @@ h1 {
     width: 150px;
 }
 
+
+table {
+    width: 100%;
+    max-width: 600px;
+    margin: 80px auto; 
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+}
+
+td {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    transition: background-color 0.3s;
+}
+
+td button {
+    background-color: rgb(246, 110, 78);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+td button:hover {
+    background-color: #d96b56;
+}
+
+
 /* ------ FOOTER SECTION ------ */
 
 

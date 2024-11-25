@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const nombre = sessionStorage.getItem("nombre");
     const apellido = sessionStorage.getItem("apellido");
     const imagen = sessionStorage.getItem("imagen");
+    const mail = sessionStorage.getItem("mail");
     mensajeBienvenida(nombre, apellido);
     actualizarFotoUsuario(imagen);
     botonCerrarSesion();
@@ -38,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Buscar en la base de datos
             document.getElementById('EtiquetaErrores').textContent = '';
 
-            buscarUsuarios(genero, edadMin, edadMax, ciudad);
+            buscarUsuarios(genero, edadMin, edadMax, ciudad, mail);
         }
     });
 });
@@ -72,7 +73,7 @@ function botonCerrarSesion() {
 
 
 
-function buscarUsuarios(genero, edadMin, edadMax, ciudad) {
+function buscarUsuarios(genero, edadMin, edadMax, ciudad, mail) {
     const request = indexedDB.open("VitoMaite05", 1);
 
     request.onsuccess = function (event) {
@@ -86,6 +87,7 @@ function buscarUsuarios(genero, edadMin, edadMax, ciudad) {
             const cursor = event.target.result;
 
             if (cursor) {
+                
                 const usuario = cursor.value;
 
 
@@ -95,13 +97,16 @@ function buscarUsuarios(genero, edadMin, edadMax, ciudad) {
                 console.log("edadMin:", edadMin, "usuario.edad:", usuario.edad);
                 console.log("edadMax:", edadMax, "usuario.edad:", usuario.edad);
                 console.log("usuario.genero:", usuario.genero);
+                console.log(usuario.mail," comparado con ", mail);
 
+                
                 // Filtrar por criterios
                 if (
                         (usuario.ciudad === ciudad) &&
                         (usuario.edad >= edadMin) &&
                         (usuario.edad <= edadMax) &&
-                        (usuario.genero === genero)
+                        (usuario.genero === genero) &&
+                        (usuario.mail =! mail)
                         ) {
                     resultados.push(usuario);
 
@@ -131,6 +136,7 @@ async function mostrarResultados(resultados) {
     // Creamos el mensaje de "no hay resultados"
     if (resultados.length === 0) {
         document.getElementById('EtiquetaErrores').textContent = 'NO HAY USUARIOS CON LOS CRITERIOS SELECCIONADOS';
+         document.getElementById('resultados').textContent = '';
         return;
     }
 
