@@ -105,11 +105,14 @@ function agregarLikeALaInterfaz(like) {
         esMatchCabecera.textContent = "Match";
         var usuarioCabecera = document.createElement("th");
         usuarioCabecera.textContent = "Usuario";
+        var detallesCabecera = document.createElement("th");
+        detallesCabecera.textContent = "Detalles";
         
         // Agregar celdas de la cabecera a la fila de la cabecera
         filaCabecera.appendChild(fechaCabecera);
         filaCabecera.appendChild(usuarioCabecera);
         filaCabecera.appendChild(esMatchCabecera);
+        filaCabecera.appendChild(detallesCabecera);
         
         // Añadir la cabecera a la tabla
         tablaLikes.appendChild(filaCabecera);
@@ -214,12 +217,5 @@ function obtenerInformacionUsuario(mail, callback) {
         callback(null);
     };
 }
-
-//****************************************************************************** 
-//*************************** Busqueda ************************************
-//****************************************************************************** 
-
-
-
 
 

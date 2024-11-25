@@ -17,6 +17,10 @@ body {
     width: 0;
 }
 
+.tabla-usuarios {
+    margin-bottom: 1000px; /* Espacio debajo de la tabla */
+}
+
 
 /* ------ HEADER SECTION ------ */
 
@@ -63,7 +67,7 @@ header {
 
 
 main {
-    height: 100vh;
+   
 }
 
 h1 {
@@ -71,6 +75,52 @@ h1 {
 }
 
 
+
+/*Barra de navegación-----------------------------------------*/
+/* Imagen del usuario */
+#fotoUsuario {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Hacer la imagen redonda */
+    object-fit: cover; /* Ajustar la imagen al contenedor */
+}
+
+/* Texto del mensaje de bienvenida */
+#mensajeBienvenida {
+    color: white; /* Texto en blanco */
+    font-size: 16px; /* Tamaño de fuente */
+    margin-right: 10px; /* Espaciado entre el mensaje y la imagen */
+}
+
+/* Botón de cerrar sesión */
+#cerrarSesionBtn {
+    background-color: #555; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 5px 10px; /* Espaciado interno */
+    cursor: pointer; /* Cambia el cursor a "pointer" */
+    transition: background-color 0.3s ease; /* Animación al pasar el ratón */
+}
+
+#EditarPerfil {
+    background-color: #555; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 5px 10px; /* Espaciado interno */
+    cursor: pointer; /* Cambia el cursor a "pointer" */
+    transition: background-color 0.3s ease; /* Animación al pasar el ratón */
+}
+
+#cerrarSesionBtn:hover {
+    background-color: #333; /* Color de fondo más oscuro al pasar el ratón */
+}
+
+
+#EditarPerfil:hover {
+    background-color: #333; /* Color de fondo más oscuro al pasar el ratón */
+}
 
 /*BuscarNoLogueado-*/
 .BotonBuscarNoLog {
@@ -98,6 +148,7 @@ h1 {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     text-align: center;
     width: 850px;
+    margin-bottom: 70px;
 }
 
 #EtiquetaErrores {
@@ -144,6 +195,132 @@ h1 {
 }
 
 
+.izquierda {
+    float: left;
+    width: 30%;
+}
+
+.centrado {
+    float: left;
+    width: 30%;
+    text-align: center;
+}
+
+.derecha {
+    float: left;
+    width: 30%;
+    text-align: right;
+}
+
+
+
+/* ------ FOOTER SECTION ------ */
+
+
+#main-footer {
+    background-color: black;
+    color: #aaa;
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    margin-top: auto;
+}
+
+#main-footer h3 {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+#main-footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+#main-footer ul li {
+    margin-bottom: 5px;
+}
+
+#main-footer h4 {
+    margin-top: 20px;
+    font-weight: normal;
+    color: #aaa;
+}
+
+
+
+.input-busquedaNickNoLogueado {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    position: relative;
+}
+
+.input-text {
+    flex: 1;
+    font-family: Arial, sans-serif;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #333;
+    background: transparent;
+    transition: border-color 0.3s;
+}
+
+.input-text::placeholder {
+    color: transparent;
+}
+
+.input-text-label {
+    position: absolute;
+    left: 0;
+    font-size: 16px;
+    color: #aaa;
+    transition: 0.2s;
+    pointer-events: none;
+    padding-left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.input-text:focus {
+    outline: none;
+    border-color: rgb(246, 110, 78);
+}
+
+.input-text:focus ~ .input-text-label,
+.input-text:not(:placeholder-shown) ~ .input-text-label {
+    top: -10px;
+    font-size: 14px;
+    color: rgb(246, 110, 78);
+}
+
+.boton-buscar {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: rgb(246, 110, 78);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.boton-buscar:hover {
+    background-color: #d96b56;
+}
+
+.icono-buscar {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
 table {
     width: 100%;
     max-width: 600px;
@@ -182,35 +359,8 @@ td button:hover {
     background-color: #d96b56;
 }
 
-
-/* ------ FOOTER SECTION ------ */
-
-
-#main-footer {
-    background-color: black;
-    color: #aaa;
-    text-align: center;
-    padding: 20px;
-    font-size: 12px;
-    margin-top: auto;
-}
-
-#main-footer h3 {
-    color: #fff;
-    margin-bottom: 10px;
-}
-
-#main-footer ul {
-    list-style: none;
-    padding: 0;
-}
-
-#main-footer ul li {
-    margin-bottom: 5px;
-}
-
-#main-footer h4 {
-    margin-top: 20px;
-    font-weight: normal;
-    color: #aaa;
+body {
+    min-height: 100vh; /* Altura mínima de la página */
+    display: flex;
+    flex-direction: column;
 }

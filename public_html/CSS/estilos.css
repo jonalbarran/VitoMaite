@@ -440,12 +440,93 @@ img[alt="ImagenUsuarioBNL"] {
     margin-right: 5px;
 }
 
-table {
-    width: 100%;
-    max-width: 600px;
-    margin: 80px auto; 
+/* Estilo para tablaLikes */
+#tablaLikes {
+    width: 90%;
+    max-width: 800px;
+    margin: 40px auto;
     border-collapse: collapse;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
 }
+
+#tablaLikes th, #tablaLikes td {
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
+}
+
+#tablaLikes th {
+    background: linear-gradient(45deg, #ff4b5c, #ff6a00);
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 3px solid #ddd;
+}
+
+#tablaLikes td {
+    background-color: #f9f9f9;
+    color: #333;
+    transition: background-color 0.3s ease;
+    border-bottom: 1px solid #ddd;
+}
+
+#tablaLikes td:hover {
+    background-color: rgba(255, 75, 92, 0.1);
+}
+
+#tablaLikes td button {
+    background-color: #ff6a00;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#tablaLikes td button:hover {
+    background-color: #ff4b5c;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+    #tablaLikes {
+        font-size: 14px;
+    }
+
+    #tablaLikes th, #tablaLikes td {
+        padding: 10px;
+    }
+}
+
+button[data-mail] {
+    background-color: #4CAF50; /* Verde suave */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Animaciones */
+}
+
+button[data-mail]:hover {
+    background-color: #45a049; /* Más oscuro al pasar el ratón */
+    transform: scale(1.05); /* Ligera ampliación */
+}
+
+button[data-mail]:active {
+    background-color: #3e8e41; /* Aún más oscuro al hacer clic */
+    transform: scale(0.98); /* Efecto de pulsación */
+}
+
 
 th, td {
     padding: 10px;
