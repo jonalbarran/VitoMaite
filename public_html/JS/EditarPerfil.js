@@ -360,30 +360,38 @@ function mostrarAficiones() {
             userAficionesRequest.onsuccess = function () {
                 // Obtener solo las aficiones del usuario
                 const userAficionIds = userAficionesRequest.result
-                    .filter(item => item.mail === mailUsuario) // Filtrar por usuario
-                    .map(item => item.aficionId); // Solo obtenemos los aficionId
+                        .filter(item => item.mail === mailUsuario) // Filtrar por usuario
+                        .map(item => item.aficionId); // Solo obtenemos los aficionId
 
-                // Crear lista de checkboxes
+                // Selecciona el contenedor donde se agregarán los elementos
                 const listaDiv = document.getElementById("lista-aficiones");
                 listaDiv.innerHTML = ""; // Limpiar contenido previo
 
+                // Agregar la clase al contenedor para aplicar el diseño deseado
+                listaDiv.className = "days-btn-container";
+
+                // Iterar sobre la lista de aficiones para crear los checkboxes
                 aficiones.forEach(aficion => {
+                    // Crear el checkbox
                     const checkbox = document.createElement("input");
                     checkbox.type = "checkbox";
-                    checkbox.value = aficion.id; // Asignar el id de la afición
-                    checkbox.checked = userAficionIds.includes(aficion.id); // Preseleccionar si el usuario ya la tiene
+                    checkbox.className = "day-btn"; // Asignar clase específica
+                    checkbox.id = `aficion-${aficion.id}`; // Asignar id único
+                    checkbox.checked = userAficionIds.includes(aficion.id); // Preseleccionar si aplica
+                    checkbox.value = aficion.id; // Guardar el id de la afición como valor
 
+                    // Crear la etiqueta asociada
                     const label = document.createElement("label");
-                    label.textContent = aficion.aficion;
+                    label.className = "day-label custom-label"; // Asignar clases específicas
+                    label.htmlFor = `aficion-${aficion.id}`; // Asociar con el checkbox
+                    label.textContent = aficion.aficion; // Mostrar el nombre completo de la afición
 
-                    const div = document.createElement("div");
-                    div.appendChild(checkbox);
-                    div.appendChild(label);
-
-                    listaDiv.appendChild(div);
+                    // Añadir el checkbox y la etiqueta al contenedor
+                    listaDiv.appendChild(checkbox);
+                    listaDiv.appendChild(label);
                 });
 
-                listaDiv.style.display = "block"; // Mostrar la lista
+
             };
 
             userAficionesRequest.onerror = function () {
@@ -416,7 +424,7 @@ function guardarAficiones() {
         // Obtener todas las aficiones del usuario
         const aficionUsuarioTransaction = db.transaction("AficionUsuario", "readwrite");
         const aficionUsuarioStore = aficionUsuarioTransaction.objectStore("AficionUsuario");
-        
+
         // Obtener las aficiones del usuario actual
         const userAficionesRequest = aficionUsuarioStore.getAll();
         userAficionesRequest.onsuccess = function () {
@@ -425,8 +433,8 @@ function guardarAficiones() {
 
             // Creamos un array de los aficionId seleccionados
             const aficionesSeleccionadas = Array.from(checkboxes)
-                .filter(checkbox => checkbox.checked)
-                .map(checkbox => parseInt(checkbox.value));
+                    .filter(checkbox => checkbox.checked)
+                    .map(checkbox => parseInt(checkbox.value));
 
             // 1. Eliminar aficiones desmarcadas
             userAficiones.forEach(function (aficionUsuario) {
@@ -439,7 +447,7 @@ function guardarAficiones() {
             aficionesSeleccionadas.forEach(function (aficionId) {
                 // Solo insertar si no existe ya la relación
                 if (!userAficionIds.includes(aficionId)) {
-                    aficionUsuarioStore.add({ mail: mailUsuario, aficionId: aficionId });
+                    aficionUsuarioStore.add({mail: mailUsuario, aficionId: aficionId});
                 }
             });
 
@@ -447,8 +455,8 @@ function guardarAficiones() {
             console.log("Aficiones guardadas correctamente.");
         };
 
-        
+
     };
 
-   
+
 }

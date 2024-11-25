@@ -9,9 +9,11 @@
         <script src="JS/config.js"></script>  <!-- Cargar el archivo de configuración -->
     </head>
     <body>
-        <div id="title">
-            <p>GENTE CERCA DE TÍ</p>
-        </div>
+        <header>
+            <button type="submit" class="atras-btn" onclick="window.location.href = 'Index.html'"><img src="IMG/flechaAtras.png" alt="Flecha hacia atrás" class="imagen-flecha">
+            </button>
+            <p id="title">GENTE CERCA DE TÍ</p>
+        </header>
         <div id="map"></div>
         <div id="controls">
             <label for="distance">Selecciona la distancia (km): </label>
@@ -22,15 +24,16 @@
                 <option value="2">2 km</option>
             </select>
         </div>
-        
+
         <!-- Cargar el archivo JS que contiene la clave de la API -->
         <script src="JS/geolocal.js"></script>
 
         <script>
-            // Crear el script para cargar la API de Google Maps dinámicamente
-            const script = document.createElement('script');
-            script.src = `https://maps.googleapis.com/maps/api/js?key=${config.googleMapsApiKey}&callback=initMap`;
-            document.head.appendChild(script);  // Añadir el script al encabezado del documento
+        // Crear el script para cargar la API de Google Maps dinámicamente
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDrBBcgG2u75UyA2MuqZa9_YyMf1jqZbpo&callback=initMap`;
+        document.head.appendChild(script);  // Añadir el script al encabezado del documento
         </script>
     </body>
+
 </html>
