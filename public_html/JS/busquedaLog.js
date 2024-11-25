@@ -336,7 +336,7 @@ function manejarClickLike(mail) {
                            meGusta.like='2';
                            console.log('Has hecho Match');
                         }
-                    }else if()
+                    }else if(meGusta.user1===mail)
                     {console.log('nonon');}
                 } else {
                     // Cuando no hay más registros, resolver la promesa
