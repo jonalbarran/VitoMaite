@@ -147,10 +147,10 @@ function agregarLikeALaInterfaz(like) {
     
     // Lógica para mostrar la imagen según el valor del like.match
     if (like.like === "2") { // Si hay "match"
-        imgMatch.src = "IMG/corazonLike.png"; // Reemplaza con tu base64
+        imgMatch.src = "IMG/imagenMatch.png"; // Reemplaza con tu base64
         imgMatch.alt = "Match"; // Texto alternativo
     } else {
-        imgMatch.src = "IMG/corazonLike2.png"; // Otra imagen o deja vacío si no hay
+        imgMatch.src = "IMG/corazonLike.png"; // Otra imagen o deja vacío si no hay
         imgMatch.alt = "No Match"; // Texto alternativo
     }
     

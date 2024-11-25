@@ -338,26 +338,26 @@ function manejarClickLike(mail) {
                 if (meGusta.user1 === mail && meGusta.user2 === mailUsuario) {
                        centinela=true;
                     if (meGusta.like === '2') {
-                        console.log('Ya tenias match');
+                        alert('Ya tenias match');
                     } else {
                         meGusta.like = '2';
-                        console.log('Has hecho Match');
+                        alert('Has hecho Match');
                         const updateRequest = cursor.update(meGusta);
                     }
                 } else if (meGusta.user1 === mailUsuario && meGusta.user2 === mail)
                 {       centinela=true;
                     if (meGusta.like === '2') {
-                        console.log('Ya tenias match');
+                        alert('Ya tenias match');
                     } else {
                         meGusta.like = '2';
-                        console.log('Has hecho Match');
+                        alert('Has hecho Match');
                         const updateRequest = cursor.update(meGusta);
                     }
                 } 
                 cursor.continue();
             }else{
                 if(centinela===false){
-            console.log('Le has dado Like');
+            alert('Le has dado Like');
             const nuevoRegistro = {
             user1: mailUsuario,
             user2: mail,
