@@ -85,48 +85,63 @@ function mostrarLikes() {
 }
 
 function agregarLikeALaInterfaz(like) {
-
     var contenedorLikes = document.getElementById("contenedorLikes");
-    var tablaLikes = document.createElement("table");
-    tablaLikes.className = "tabla-likes";
-    // Crear la fila de la cabecera
-    var filaCabecera = document.createElement("tr");
-    // Crear celdas de la cabecera
-    var fechaCabecera = document.createElement("th");
-    fechaCabecera.textContent = "Fecha Like";
-    var esMatchCabecera = document.createElement('th');
-    esMatchCabecera.textContent = "Match";
-    var usuarioCabecera = document.createElement("th");
-    usuarioCabecera.textContent = "Usuario";
-    // Agregar celdas de la cabecera a la fila de la cabecera
-    filaCabecera.appendChild(fechaCabecera);
-    filaCabecera.appendChild(usuarioCabecera);
-    filaCabecera.appendChild(esMatchCabecera);
-    //añades la cabecera
-    tablaLikes.appendChild(filaCabecera);
+
+    // Verificar si la tabla ya existe, si no, crearla
+    var tablaLikes = document.getElementById("tablaLikes");
+    if (!tablaLikes) {
+        // Si no existe la tabla, crearla
+        tablaLikes = document.createElement("table");
+        tablaLikes.id = "tablaLikes";  // Asignamos un id para acceder a la tabla después
+        tablaLikes.className = "tabla-likes";
+        
+        // Crear la fila de la cabecera
+        var filaCabecera = document.createElement("tr");
+        
+        // Crear celdas de la cabecera
+        var fechaCabecera = document.createElement("th");
+        fechaCabecera.textContent = "Fecha Like";
+        var esMatchCabecera = document.createElement('th');
+        esMatchCabecera.textContent = "Match";
+        var usuarioCabecera = document.createElement("th");
+        usuarioCabecera.textContent = "Usuario";
+        
+        // Agregar celdas de la cabecera a la fila de la cabecera
+        filaCabecera.appendChild(fechaCabecera);
+        filaCabecera.appendChild(usuarioCabecera);
+        filaCabecera.appendChild(esMatchCabecera);
+        
+        // Añadir la cabecera a la tabla
+        tablaLikes.appendChild(filaCabecera);
+        
+        // Añadir la tabla al contenedor
+        contenedorLikes.appendChild(tablaLikes);
+    }
+    
     // Crear una fila para cada like
     var filaLike = document.createElement("tr");
-    // Crear celdas para mostrar la información del artículo
+    
+    // Crear celdas para mostrar la información del like
     var fechaCelda = document.createElement("td");
-    fechaStalking = extraerFecha(like.fecha);
+    var fechaStalking = extraerFecha(like.fecha);
     fechaCelda.textContent = fechaStalking;
+    
     var usuarioCelda = document.createElement("td");
-    emailUsuario = like.user1;
+    var emailUsuario = like.user1;
     obtenerInformacionUsuario(emailUsuario, function (usuario) {
         if (usuario) {
-
-            nickStalcker = usuario.nombre;
+            var nickStalcker = usuario.nombre;
             usuarioCelda.textContent = nickStalcker;
         } else {
             console.log("Usuario no encontrado o error al buscar.");
         }
     });
+    
     var matchCelda = document.createElement("td"); // Celda para la imagen de "Match"
-
     var imgMatch = document.createElement("img");
     imgMatch.style.width = "20px"; // Ajustar tamaño
     imgMatch.style.height = "20px"; // Ajustar tamaño
-
+    
     // Lógica para mostrar la imagen según el valor del like.match
     if (like.like === "2") { // Si hay "match"
         imgMatch.src = "IMG/corazonLike.png"; // Reemplaza con tu base64
@@ -135,21 +150,33 @@ function agregarLikeALaInterfaz(like) {
         imgMatch.src = "IMG/corazonLike2.png"; // Otra imagen o deja vacío si no hay
         imgMatch.alt = "No Match"; // Texto alternativo
     }
-
+    
     matchCelda.appendChild(imgMatch);
+    
+    // Crear el botón de detalles
     var botonDetalles = document.createElement("button");
-    // Agregar celdas a la fila del artículo
+    botonDetalles.textContent = "Detalles";
+    
+    // Asignar el correo del usuario al atributo data-mail del botón
+    botonDetalles.dataset.mail = emailUsuario; // Asignamos el correo al botón
+    
+    // Agregar el evento de clic al botón de detalles
+    botonDetalles.addEventListener("click", function (e) {
+        const mailUsuario = e.target.dataset.mail; // Obtener el correo del usuario
+        sessionStorage.setItem('usuarioSeleccionado', mailUsuario); // Guardar en sessionStorage
+        window.location.href = 'detalles.html'; // Redirigir a detalles.html
+    });
+    
+    // Agregar celdas a la fila del like
     filaLike.appendChild(fechaCelda);
     filaLike.appendChild(usuarioCelda);
     filaLike.appendChild(matchCelda);
     filaLike.appendChild(botonDetalles);
-    botonDetalles.textContent = "Detalles";
-    botonDetalles.addEventListener("click", function () {
-        mostrarDetallesLike();
-    });
+    
+    // Añadir la fila a la tabla existente
     tablaLikes.appendChild(filaLike);
-    contenedorLikes.appendChild(tablaLikes);
 }
+
 
 
 function extraerFecha(fechaConHora) {
