@@ -344,8 +344,8 @@ function agregarDatos(db) {
             "edad": 20,
             "premium": false,
             "ciudad": "Bilbao",
-            "latitud": "0",
-            "longitud": "0",
+            "latitud": "0.000",
+            "longitud": "0.000",
             "imagen": base64imagen5
         }
         , {
