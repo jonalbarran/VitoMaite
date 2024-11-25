@@ -358,6 +358,12 @@ td button {
 td button:hover {
     background-color: #d96b56;
 }
+img[alt="ImagenUsuarioBNL"] {
+     width: 200px;
+    height: 200px;
+    object-fit: cover; /* Asegura que la imagen se ajuste al tamaño sin deformarse */
+   
+}
 
 body {
     min-height: 100vh; /* Altura mínima de la página */

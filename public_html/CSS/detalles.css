@@ -88,7 +88,7 @@ main {
 }
 /* ------ Botón atras ------ */
 
-.atras-btn {
+.atras-btn, .home-btn {
     background-color: #ff6b6b;
     color: white;
     padding: 5px 10px;
@@ -102,7 +102,7 @@ main {
     width: auto;
 }
 
-.atras-btn:hover {
+.atras-btn, .home-btn:hover {
     background-color: #ff4c4c;
 }
 

@@ -247,6 +247,13 @@ h1 {
 }
 
 
+img[alt="ImagenUsuarioBNL"] {
+     width: 200px;
+    height: 200px;
+    object-fit: cover; /* Asegura que la imagen se ajuste al tamaño sin deformarse */
+    filter: blur(5px); /* Ajusta el nivel de difuminado */
+    transition: filter 0.3s ease; /* Suaviza el efecto al interactuar */
+}
 
 .input-busquedaNickNoLogueado {
     display: flex;
@@ -364,3 +371,5 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+
