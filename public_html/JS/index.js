@@ -233,7 +233,9 @@ function abrirBaseDeDatos() {
         meGustaStore.add({user1: "carla.perez@example.com", user2: "omar.lopez@example.com", fecha: "03-11-2024T15:47", like: "2"});
         meGustaStore.add({user1: "laura.sanchez@example.com", user2: "omar.lopez@example.com", fecha: "03-11-2024T15:47", like: "2"});
         meGustaStore.add({user1: "omar.lopez@example.com", user2: "laura.sanchez@example.com", fecha: "03-11-2024T15:47", like: "2"});
-
+        meGustaStore.add({user1: "laura.sanchez@example.com", user2: "carla.perez@example.com", fecha: "2024-11-25T15:47:00.000Z", like: "2" });
+        meGustaStore.add({user1: "laura.sanchez@example.com", user2: "maria.garcia@example.com", fecha: "2024-11-25T15:47:00.000Z", like: "2" });
+ 
         console.log("Almacenes de objetos creados con éxito.");
     };
 
@@ -287,8 +289,8 @@ function agregarDatos(db) {
             "edad": 30,
             "premium": false,
             "ciudad": "Donosti",
-            "latitud": "0",
-            "longitud": "0",
+            "latitud": "43.253219",
+            "longitud": "-2.927181",
             "imagen": base64imagen1
         },
         {
@@ -485,6 +487,7 @@ function agregarDatos(db) {
     
         
     }
+    
     
 
     

@@ -167,13 +167,33 @@ async function mostrarResultados(resultados) {
             // Crear y agregar la imagen del usuario
             const fotoUsuario = document.createElement("img");
             fotoUsuario.src = "img/" + usuario.foto;
+            
+            
+            const btnLike = document.createElement("button");
+            btnLike.classList.add("btn-like");
+            btnLike.dataset.mail = usuario.mail; // Guardar el mail como dataset
+            const iconoLike = document.createElement("img");
+            iconoLike.src = "IMG/corazonDarLike.png"; // Ruta de la imagen del icono
+            iconoLike.alt = "Like";
+            iconoLike.style.width = "20px"; // Ajustar tamaño del icono
+            iconoLike.style.height = "20px";
+            btnLike.appendChild(iconoLike);
+
+            // Añadir evento al botón para manejar el clic
+            btnLike.addEventListener("click", () => manejarClickLike(usuario.mail));
 
             fila.innerHTML = `
                 <td>${usuario.nombre}</td>
                 <td>${usuario.edad}</td>
                 <td><img src="${usuario.imagen}" alt="ImagenUsuarioBNL"></td>
                 <td><button class="btn-detalles" data-mail="${usuario.mail}">Más detalles</button></td>
+                
             `;
+            const celdaLike = document.createElement("td");
+            celdaLike.appendChild(btnLike);
+            fila.appendChild(celdaLike);
+
+            
             tabla.appendChild(fila);
         }
     }
@@ -282,6 +302,53 @@ function compararArrays(array1, array2) {
     return false; 
 }
 
+function manejarClickLike(mail) {
+   
+    const request = indexedDB.open("VitoMaite05");
+
+    request.onsuccess = function (event) {
+        const db = event.target.result; // Referencia a la base de datos
+        console.log("Base de datos 'VitoMaite05' abierta exitosamente");
+    
+    console.log(`Se dio like al usuario con mail: ${mail}`);
+    // Aquí puedes agregar lógica adicional, como registrar el like en una base de datos.
+    
+    const mailUsuario = sessionStorage.getItem("mail");
+    console.log(mailUsuario);
+    
+    // Crear una transacción de solo lectura en la tabla "MeGusta"
+            const transaction = db.transaction(["meGusta"], "readonly");
+            const meGustaStore = transaction.objectStore("meGusta");
+
+            // Usar un cursor para recorrer los registros
+            const cursorRequest = meGustaStore.openCursor();
+            
+             cursorRequest.onsuccess = function (event) {
+                const cursor = event.target.result;
+
+                if (cursor) {
+                    const meGusta = cursor.value;
+
+                    if(meGusta.user1===mail && meGusta.user2===mailUsuario){
+                        if(meGusta.like==='2'){
+                            console.log('Ya tenias match');
+                        }else{
+                           meGusta.like='2';
+                           console.log('Has hecho Match');
+                        }
+                    }else if()
+                    {console.log('nonon');}
+                } else {
+                    // Cuando no hay más registros, resolver la promesa
+                    
+                }
+            };
+            
+            
+            
+    
+    };
+}
 
 
 
