@@ -25,6 +25,7 @@ body {
     min-height: 100vh;
     height: 100vh;
     width: 100%;
+    padding: 20px;
 }
 
 .logo {
@@ -36,7 +37,86 @@ body {
     height: 70px;
     margin-left: 10px;
 }
-/*Botones Inicio-----------------------------------------*/
+/*Contenedores Inicio-----------------------------------------*/
+
+/* Tarjetas */
+
+main {
+    display: flex;
+    justify-content: center;  /* Distribuye las cartas de manera equitativa */
+    flex-wrap: wrap;  /* Permite que las cartas se ajusten si no caben en una línea */
+    margin-top: 110px;  /* Espaciado superior */
+}
+
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 300px; /* Aumentada el ancho */
+  padding: 20px;
+  margin: 20px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, .4), 0 4px 6px -4px rgba(0, 0, 0, .4); /* Sombra negra */
+  border-radius: 12px;
+  background: #333; /* Fondo inicial gris oscuro */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease, background 0.3s ease; /* Añadida transición para el fondo */
+}
+
+/* Efecto hover de la tarjeta */
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, .6), 0 4px 10px rgba(0, 0, 0, .3); /* Sombra negra al pasar el ratón */
+  background: linear-gradient(45deg, #ff6a00 0%, #ff4b5c 100%); /* Gradiente rojo al pasar el ratón */
+}
+
+
+
+
+
+/* Contenido de la tarjeta */
+.content {
+  padding: 20px;
+}
+
+.content .title {
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #fff; /* Texto blanco */
+  margin-top: 10px;
+  font-size: 24px;
+  letter-spacing: 1px;
+}
+
+.content .description {
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+
+
+.foto img {
+    width: 100%;
+    height: auto;
+    max-width: 250px; /* Limitar el tamaño máximo de la imagen */
+    max-height: 150px; /* Limitar el tamaño máximo de la imagen */
+    object-fit: contain; /* Mantener la relación de aspecto */
+    border-radius: 8px;
+}
+
+.botonCarta {
+    background-color: #4CAF50;  /* Color */
+    color: white;               /* Texto blanco */
+    font-size: 16px;            /* Tamaño de fuente */
+    padding: 12px 24px;         /* Espaciado interno */
+    border: none;               /* Sin borde */
+    border-radius: 8px;         /* Bordes redondeados */
+}
+
 
 
 

@@ -31,14 +31,33 @@
         </header>
 
         <main>
+
+            <div class="card" onclick="window.location.href = 'geolocal.html'">
+                <div class="content">
+                    <div class="title">BÚSQUEDA GEOLOCALIZADA</div>
+                    <div class="foto"><img id="fotoCarta" src ='IMG/busquedaGeolocalizada.png'></div>
+                    <div class="description">Busqueda por cercanía dento de tu ciudad.</div>
+                </div>
+                
+            </div>
+            <div class="card" id="mostrarLikes">
+                <div class="content">
+                    <div class="title">MIS LIKES</div>
+                    <div class="foto"><img id="fotoCarta" src ='IMG/buscarAmorICN.png'></div>
+                    <div class="description">Enterate de quién te da likes y con quien has hecho match.</div>
+                </div>
+
+            </div>
+            <div class="card" onclick="window.location.href = 'busquedaLog.html'">
+                <div class="content">
+                    <div class="title">BUSQUEDA AVANZADA</div>
+                    <div class="foto"><img id="fotoCarta" src ='IMG/buscarPersonaICN.png'></div>
+                    <div class="description">Busqueda por aficiones.</div>
+                </div>
+            </div>
+
+            <br> 
             
-            
-
-
-            <button class="animated-button" onclick="window.location.href = 'geolocal.html'"><span>Búsqueda Geolocalizada</span><span></span></button>
-            <button class="animated-button" id="mostrarLikes"><span>MostrarLikes</span><span></span></button>
-            <button class="animated-button" onclick="window.location.href = 'busquedaLog.html'"><span>Búsqueda Avanzada</span><span></span></button>
-
             <div id="contenedorLikes"></div>
         </main>
 
