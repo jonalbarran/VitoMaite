@@ -21,6 +21,7 @@
         <main>
             <form id="form-buscar">
                 <h1>VitoMaite</h1>
+                <br>
                 <label for="preferencia">Qué estás buscando</label>
                 <select id="preferencia" name="preferencia">
                     <option value="Masculino">Busco hombre</option>
@@ -28,26 +29,24 @@
 
 
                 </select>
-
+                <br><br>
                 <label for="ciudad">Ciudad</label>
                 <select id="ciudad" name="ciudad">
                     <option value="Bilbao">Bilbao</option>
                     <option value="Donosti">Donosti</option>
                     <option value="Vitoria">Vitoria</option>
                 </select>
-                <br>
+                <br><br>
                 <label for="edad-min">Edad mínima</label>
                 <input type="number" id="edad-min" name="edad-min" >
-
+                <br><br>
                 <label for="edad-max">Edad máxima</label>
                 <input type="number" id="edad-max" name="edad-max" >
-
+                <br><br>
 
 
                 <button type="submit">Buscar Candidato/a</button>
             </form>
-            <button onclick="window.location.href = 'geolocal.html'">Buscar por geolocalización</button>
-            <button onclick="window.location.href = 'busquedaLog.html'">Buscar Logueado</button>
             <label id="EtiquetaErrores"></label>
 
             <div id="resultados">

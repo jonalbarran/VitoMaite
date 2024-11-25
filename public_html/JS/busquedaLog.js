@@ -316,19 +316,19 @@ function manejarClickLike(mail) {
         const db = event.target.result; // Referencia a la base de datos
         console.log("Base de datos 'VitoMaite05' abierta exitosamente");
 
-        console.log(`Se dio like al usuario con mail: ${mail}`);
+        console.log('Se dio like al usuario con mail: ${mail}');
         // Aquí puedes agregar lógica adicional, como registrar el like en una base de datos.
 
         const mailUsuario = sessionStorage.getItem("mail");
         console.log(mailUsuario);
 
         // Crear una transacción de solo lectura en la tabla "MeGusta"
-        const transaction = db.transaction(["meGusta"], "readonly");
+        const transaction = db.transaction(["meGusta"], "readwrite");
         const meGustaStore = transaction.objectStore("meGusta");
 
         // Usar un cursor para recorrer los registros
         const cursorRequest = meGustaStore.openCursor();
-
+        let centinela= false;
         cursorRequest.onsuccess = function (event) {
             const cursor = event.target.result;
 
@@ -336,27 +336,36 @@ function manejarClickLike(mail) {
                 const meGusta = cursor.value;
                 console.log(meGusta.user1, mail, meGusta.user2, mailUsuario);
                 if (meGusta.user1 === mail && meGusta.user2 === mailUsuario) {
-
+                       centinela=true;
                     if (meGusta.like === '2') {
                         console.log('Ya tenias match');
                     } else {
                         meGusta.like = '2';
                         console.log('Has hecho Match');
+                        const updateRequest = cursor.update(meGusta);
                     }
                 } else if (meGusta.user1 === mailUsuario && meGusta.user2 === mail)
-                {
+                {       centinela=true;
                     if (meGusta.like === '2') {
                         console.log('Ya tenias match');
                     } else {
                         meGusta.like = '2';
                         console.log('Has hecho Match');
+                        const updateRequest = cursor.update(meGusta);
                     }
-                } else {
-                    console.log('Le has dado Like');
-
-
-                }
+                } 
                 cursor.continue();
+            }else{
+                if(centinela===false){
+            console.log('Le has dado Like');
+            const nuevoRegistro = {
+            user1: mailUsuario,
+            user2: mail,
+            like: '1',
+            fecha:new Date().toISOString()
+        };
+        const addRequest = meGustaStore.add(nuevoRegistro);
+            
             }
             ;
 
@@ -364,7 +373,10 @@ function manejarClickLike(mail) {
 
 
         };
-    };
+        
+    
+};
+};
 }
 
 function manejarClickLike(mail) {
