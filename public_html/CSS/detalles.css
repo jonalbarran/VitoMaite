@@ -1,0 +1,123 @@
+#map {
+    height: 400px; /* Puedes ajustar este valor */
+    width: 50%; /* El mapa ocupará todo el ancho del contenedor */
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+    background: linear-gradient(45deg, #ff3e3e, #ffcc70);
+}
+
+::-webkit-scrollbar{
+    width: 0;
+}
+
+
+/* ------ HEADER SECTION ------ */
+
+
+header {
+    display: flex; 
+    justify-content: space-between; 
+    min-height: 70px;
+    background-color: black;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn {
+    padding: 10px;
+    margin-right: 10px;
+    background: rgb(246, 110, 78);
+    color: White;
+    border: none;
+    border-radius: 50px;
+    font-size: 20px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.btn:hover{
+    background-color: #ff4c4c;
+}
+
+.logo {
+    cursor: pointer;
+}
+
+.logo img {
+    height: 70px;
+    margin-left: 10px;
+}
+
+
+
+/* ------ Estilo para el contenedor ------ */
+#Container {
+    max-width: 900px;   /* Define el ancho máximo del contenedor */
+    width: 100%;        /* Se asegura de que el contenedor no sobrepase el 100% del ancho */
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;    /* Opcional, pero puede ser útil para mejorar la legibilidad */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ------ FOOTER SECTION ------ */
+
+
+#main-footer {
+    background-color: black;
+    color: #aaa;
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    margin-top: auto;
+}
+
+#main-footer h3 {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+#main-footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+#main-footer ul li {
+    margin-bottom: 5px;
+}
+
+#main-footer h4 {
+    margin-top: 20px;
+    font-weight: normal;
+    color: #aaa;
+}

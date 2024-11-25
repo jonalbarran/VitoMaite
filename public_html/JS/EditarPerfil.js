@@ -447,12 +447,8 @@ function guardarAficiones() {
             console.log("Aficiones guardadas correctamente.");
         };
 
-        userAficionesRequest.onerror = function () {
-            console.error("Error al obtener las aficiones del usuario.");
-        };
+        
     };
 
-    request.onerror = function () {
-        console.error("Error al abrir la base de datos.");
-    };
+   
 }

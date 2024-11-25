@@ -3,9 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="CSS/estilos.css">
+        <link rel="stylesheet" type="text/css" href="CSS/detalles.css">
         <title>VITOMAITE</title>
         <link rel="icon" type="image/ico" href="img/logomini.ico"/>
+        <script src="JS/config.js"></script>
 
     </head>
     <body class="vitomaite-body">
@@ -26,55 +27,69 @@
 
             </nav>
 
-
         </header>
 
+
+    <body>
+        <main>
+            <div id="Container">
+            <label>Nombre:</label>
+            <label id="labelMail"></label>
+            <br>
+
+            <label>Edad:</label>
+            <label id="labelEdad"></label>
+            <br>
+
+            <label >Género:</label>
+            <label id="labelGenero" ></label>
+            <br>
+
+            <label>Ciudad:</label>
+            <label id="labelCiudad" ></label>
+            <br>
+
+
+            <label>Imagen:</label>
+            <label><img src="src" alt="imagenUsuario"/></label>
+            <br>
+            </div>
+        </main>
+
+        <div id="map"></div>
        
-                <body>
-                     <main>
-                        <label>Nombre:</label>
-                        <label id="labelMail"></label>
-                        <br>
+    </body>
 
-                        <label>Edad:</label>
-                        <label id="labelEdad"></label>
-                        <br>
 
-                        <label >Género:</label>
-                        <label id="labelGenero" ></label>
-                        <br>
 
-                        <label>Ciudad:</label>
-                        <label id="labelCiudad" ></label>
-                        <br>
-
-                        
-                        <label>Imagen:</label>
-                        <label><img src="src" alt="imagenUsuario"/></label>
-                        <br>
-                        </main>
-                </body>
-
-        
-
-        <footer id="main-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <h3>Desarrolladores</h3>
-                        <ul>
-                            <li>Jon Albarrán</li>
-                            <li>Mikel Martin</li>
-                            <li>Andoni Gonzalez</li>
-                        </ul>
-                        <h4>&copy; 2024 Vitomaite. Todos los derechos reservados. Esta aplicación y su contenido están protegidos por leyes de copyright y propiedad intelectual. El uso no autorizado está prohibido.</h4>
-                    </div>
+    <footer id="main-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3>Desarrolladores</h3>
+                    <ul>
+                        <li>Jon Albarrán</li>
+                        <li>Mikel Martin</li>
+                        <li>Andoni Gonzalez</li>
+                    </ul>
+                    <h4>&copy; 2024 Vitomaite. Todos los derechos reservados. Esta aplicación y su contenido están protegidos por leyes de copyright y propiedad intelectual. El uso no autorizado está prohibido.</h4>
                 </div>
             </div>
-        </footer>
+        </div>
+    </footer>
+    
+    <script>
+            // Crear el script para cargar la API de Google Maps dinámicamente
+            const script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${config.googleMapsApiKey}&callback=initMap`;
+            document.head.appendChild(script);  // Añadir el script al encabezado del documento
+        </script>
 
-        <script src="JS/detalles.js"></script>
+    <script src="JS/detalles.js"></script>
+    
+    
+    
 
-    </body>
+</body>
 </html>
 
