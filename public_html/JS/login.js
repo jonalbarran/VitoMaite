@@ -37,6 +37,8 @@ function validarDatos() {
         sessionStorage.setItem("premium", usuario.premium);
         sessionStorage.setItem("ciudad", usuario.ciudad);
         sessionStorage.setItem("imagen", usuario.imagen);
+        sessionStorage.setItem("latitud", usuario.latitud);
+        sessionStorage.setItem("longitud", usuario.longitud);
             } else {
                 alert("Credenciales incorrectas. Intenta de nuevo.");
             }
