@@ -75,6 +75,52 @@ h1 {
 
 
 
+/*Barra de navegación-----------------------------------------*/
+/* Imagen del usuario */
+#fotoUsuario {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Hacer la imagen redonda */
+    object-fit: cover; /* Ajustar la imagen al contenedor */
+}
+
+/* Texto del mensaje de bienvenida */
+#mensajeBienvenida {
+    color: white; /* Texto en blanco */
+    font-size: 16px; /* Tamaño de fuente */
+    margin-right: 10px; /* Espaciado entre el mensaje y la imagen */
+}
+
+/* Botón de cerrar sesión */
+#cerrarSesionBtn {
+    background-color: #555; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 5px 10px; /* Espaciado interno */
+    cursor: pointer; /* Cambia el cursor a "pointer" */
+    transition: background-color 0.3s ease; /* Animación al pasar el ratón */
+}
+
+#EditarPerfil {
+    background-color: #555; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 5px 10px; /* Espaciado interno */
+    cursor: pointer; /* Cambia el cursor a "pointer" */
+    transition: background-color 0.3s ease; /* Animación al pasar el ratón */
+}
+
+#cerrarSesionBtn:hover {
+    background-color: #333; /* Color de fondo más oscuro al pasar el ratón */
+}
+
+
+#EditarPerfil:hover {
+    background-color: #333; /* Color de fondo más oscuro al pasar el ratón */
+}
+
 /*BuscarNoLogueado-*/
 .BotonBuscarNoLog {
     padding: 15px 20px;

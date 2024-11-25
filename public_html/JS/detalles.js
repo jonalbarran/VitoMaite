@@ -68,11 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
-
-
-
-
 function iniciarPagina(mailSeleccionado) {
     var request = indexedDB.open("VitoMaite05", 1);
 
