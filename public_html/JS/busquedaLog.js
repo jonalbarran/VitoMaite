@@ -1,15 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
     const nombre = sessionStorage.getItem("nombre");
-        const apellido = sessionStorage.getItem("apellido");
-        const imagen = sessionStorage.getItem("imagen");
-        mensajeBienvenida(nombre, apellido);
-        actualizarFotoUsuario(imagen);
-        botonCerrarSesion();
-    
+    const apellido = sessionStorage.getItem("apellido");
+    const imagen = sessionStorage.getItem("imagen");
+    mensajeBienvenida(nombre, apellido);
+    actualizarFotoUsuario(imagen);
+    botonCerrarSesion();
+
     // Escuchar el evento de envío del formulario
     const form = document.getElementById('form-buscar');
     form.addEventListener('submit', function (e) {
-        
+
         e.preventDefault(); // Evitar recargar la página
 
 
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const edadMin = parseInt(document.getElementById('edad-min').value, 10);
         const edadMax = parseInt(document.getElementById('edad-max').value, 10);
         const ciudad = document.getElementById('ciudad').value;
-        
+
 
         if (edadMin > edadMax) {
             document.getElementById('EtiquetaErrores').textContent = 'LA EDAD MÁXIMA TIENE QUE SER MAYOR QUE LA MÍNIMA';
@@ -87,7 +87,7 @@ function buscarUsuarios(genero, edadMin, edadMax, ciudad) {
 
             if (cursor) {
                 const usuario = cursor.value;
-                
+
 
                 // Log para cada variable antes de la comparación
                 console.log("Comparando con los siguientes valores:");
@@ -135,7 +135,7 @@ async function mostrarResultados(resultados) {
     }
 
     // Limpiamos el mensaje de errores
-    document.getElementById('resultados').textContent = ''; 
+    document.getElementById('resultados').textContent = '';
 
     // Creamos una nueva tabla
     const tabla = document.createElement('table');
@@ -163,17 +163,37 @@ async function mostrarResultados(resultados) {
         // Si alguna afición coincide con los checkbox seleccionados
         if (compararArrays(checkBoxes, aficiones)) {
             const fila = document.createElement('tr');
-            
+
             // Crear y agregar la imagen del usuario
             const fotoUsuario = document.createElement("img");
             fotoUsuario.src = "img/" + usuario.foto;
+
+
+            const btnLike = document.createElement("button");
+            btnLike.classList.add("btn-like");
+            btnLike.dataset.mail = usuario.mail; // Guardar el mail como dataset
+            const iconoLike = document.createElement("img");
+            iconoLike.src = "IMG/corazonDarLike.png"; // Ruta de la imagen del icono
+            iconoLike.alt = "Like";
+            iconoLike.style.width = "20px"; // Ajustar tamaño del icono
+            iconoLike.style.height = "20px";
+            btnLike.appendChild(iconoLike);
+
+            // Añadir evento al botón para manejar el clic
+            btnLike.addEventListener("click", () => manejarClickLike(usuario.mail));
 
             fila.innerHTML = `
                 <td>${usuario.nombre}</td>
                 <td>${usuario.edad}</td>
                 <td><img src="${usuario.imagen}" alt="ImagenUsuarioBNL"></td>
                 <td><button class="btn-detalles" data-mail="${usuario.mail}">Más detalles</button></td>
+                
             `;
+            const celdaLike = document.createElement("td");
+            celdaLike.appendChild(btnLike);
+            fila.appendChild(celdaLike);
+
+
             tabla.appendChild(fila);
         }
     }
@@ -213,7 +233,7 @@ function comprobarCheckboxes() {
         }
     });
 
-    
+
     return marcados;
 }
 
@@ -243,10 +263,10 @@ function obtenerAficionesUsuario(mail) {
                 }
             };
 
-            
+
         };
 
-        
+
     });
 }
 
@@ -259,39 +279,84 @@ function obtenerAficionesUsuario(mail) {
 
 function compararArrays(array1, array2) {
     // Usamos un Set para optimizar la búsqueda de elementos comunes
-    
+
     console.log("Comparando:", array1, "con", array2);
     if (array1 === null || array1.length === 0) {
-    //array nulo, no tiene en cuenta las aficiones porque no hay ninguna marcada
-    return true;
-}else{
-    
-    // Comprobamos si algún elemento de array1 está en array2
-    for (let i = 0; i < array1.length; i++) {
-        for (let j = 0; j < array2.length; j++) {
-             console.log("Comparando:", array1[i], "y", array2[j]);
-        if (array1[i] === array2[j]) {
-            console.log(" encontrado:", array1[i]);
-            
-            return true;
+        //array nulo, no tiene en cuenta las aficiones porque no hay ninguna marcada
+        return true;
+    } else {
+
+        // Comprobamos si algún elemento de array1 está en array2
+        for (let i = 0; i < array1.length; i++) {
+            for (let j = 0; j < array2.length; j++) {
+                console.log("Comparando:", array1[i], "y", array2[j]);
+                if (array1[i] === array2[j]) {
+                    console.log(" encontrado:", array1[i]);
+
+                    return true;
+                }
+            }
         }
+
     }
-}
-    
-    }
-    return false; 
+    return false;
 }
 
+function manejarClickLike(mail) {
+
+    const request = indexedDB.open("VitoMaite05");
+
+    request.onsuccess = function (event) {
+        const db = event.target.result; // Referencia a la base de datos
+        console.log("Base de datos 'VitoMaite05' abierta exitosamente");
+
+        console.log(`Se dio like al usuario con mail: ${mail}`);
+        // Aquí puedes agregar lógica adicional, como registrar el like en una base de datos.
+
+        const mailUsuario = sessionStorage.getItem("mail");
+        console.log(mailUsuario);
+
+        // Crear una transacción de solo lectura en la tabla "MeGusta"
+        const transaction = db.transaction(["meGusta"], "readonly");
+        const meGustaStore = transaction.objectStore("meGusta");
+
+        // Usar un cursor para recorrer los registros
+        const cursorRequest = meGustaStore.openCursor();
+
+        cursorRequest.onsuccess = function (event) {
+            const cursor = event.target.result;
+
+            if (cursor) {
+                const meGusta = cursor.value;
+                console.log(meGusta.user1, mail, meGusta.user2, mailUsuario);
+                if (meGusta.user1 === mail && meGusta.user2 === mailUsuario) {
+
+                    if (meGusta.like === '2') {
+                        console.log('Ya tenias match');
+                    } else {
+                        meGusta.like = '2';
+                        console.log('Has hecho Match');
+                    }
+                } else if (meGusta.user1 === mailUsuario && meGusta.user2 === mail)
+                {
+                    if (meGusta.like === '2') {
+                        console.log('Ya tenias match');
+                    } else {
+                        meGusta.like = '2';
+                        console.log('Has hecho Match');
+                    }
+                } else {
+                    console.log('Le has dado Like');
+
+
+                }
+                cursor.continue();
+            }
+            ;
 
 
 
 
-
-
-
-
-
-
-
-
-
+        };
+    };
+}

@@ -306,3 +306,9 @@ td button {
 td button:hover {
     background-color: #d96b56;
 }
+
+body {
+    min-height: 100vh; /* Altura mínima de la página */
+    display: flex;
+    flex-direction: column;
+}
